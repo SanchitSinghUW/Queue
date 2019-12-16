@@ -1,0 +1,13 @@
+import {connect} from 'react-redux';
+import {bindActionCreators} from 'redux';
+import  from ;
+
+function mapStateToProps(state) {   
+    return ({TripPage: state.VisibleState.TripPage});
+}
+
+function mapDispatchToProps(dispatch) {
+    return ({makeVis: () => dispatch({type: "ting", personId: id})});
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)();
