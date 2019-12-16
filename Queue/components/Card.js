@@ -5,18 +5,16 @@ export default function Card(props) {
 
     const average = () => {
         let now = new Date();
-        let old = props.startTime;
-        let difference = (now.getHours*60 - old.getHours) + (now.getMinutes - old.getMinutes);
-        let average = props.countDequeued / difference;
-        return average;
+        let old = new Date(props.startTime);
+        let difference = (now.getHours()*60 - old.getHours()*60) + (now.getMinutes() - old.getMinutes());
+        let average = difference / props.countDequeued;
+        return Math.round(average) + " mins";
     }
 
     return (
         <View style={styles.container}>
-            <div>
-                <div>{props.name}</div>
-                <div>Hi {average()}</div>
-            </div>
+            <Text>{props.name}</Text>
+            <Text>{average()}</Text>
         </View>
     );
 }

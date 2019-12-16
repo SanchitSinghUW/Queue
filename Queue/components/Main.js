@@ -25,11 +25,11 @@ export default function Main() {
         },
         Beetle: {
             startTime: "2019-12-15T17:20:00",
-            countDequeued: 420
+            countDequeued: 31
         },
         Cat: {
             startTime: "2019-12-15T16:24:00",
-            countDequeued: 666
+            countDequeued: 22
         }
     }
 
