@@ -15,6 +15,7 @@ export default function Card(props) {
         <View style={styles.container}>
             <Text>{props.name}</Text>
             <Text>{average()}</Text>
+            <Text>{props.countQueued - props.countDequeued + " people"}</Text>
         </View>
     );
 }
