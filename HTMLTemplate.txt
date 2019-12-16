@@ -1,0 +1,19 @@
+<div>
+	<div className="Card">
+		<p>Apple</p>
+		<p>12 mins</p>
+		<p>18 mins</p>
+	</div>
+
+	<div className="Card">
+		<p>Google</p>
+		<p>19 mins</p>
+		<p>55 mins</p>
+	</div>
+
+	<div className="Card">
+		<p>Zeeee</p>
+		<p>11 mins</p>
+		<p>22 mins</p>
+	</div>
+</div>
