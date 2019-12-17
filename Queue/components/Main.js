@@ -3,18 +3,23 @@ import { StyleSheet, Text, View } from 'react-native';
 import Card from './Card';
 
 export default function Main() {
-    let companies = {
-        Apple: {
-            positions: ["full-time", "part-time"],
-            description: "Bad company"
-        },
-        Beetle: {
-            positions: ["full-time"],
-            description: "ass"
-        },
-        Cat: {
-            positions: ["full-time, part-time, internship"],
-            description: "i love bananas"
+
+    const [companies, setCompanies] = React.useState({});
+
+    React.useEffect(() => {
+        getCompanies();
+    });
+
+    getCompanies = async () => {
+        try {
+            let response = await fetch("https://5ch9sufu53.execute-api.us-west-2.amazonaws.com/testing");
+            if(!response.ok) {
+                console.log(response);
+            }
+            let data = await response.json();
+            setCompanies(data);
+        } catch(e) {
+            console.log(e);
         }
     }
 
@@ -33,12 +38,20 @@ export default function Main() {
             startTime: "2019-12-15T16:24:00",
             countDequeued: 22,
             countQueued: 200
+        },
+        Zucc: {
+            startTime: "2019-12-16T16:24:00",
+            countDequeued: 50,
+            countQueued: 220
         }
     }
 
     const getCards = () => {
+        //call back end and then companies is what is returned
         return Object.keys(companies).map((key) => {
-                                return <Card name={key} 
+                                return <Card
+                                            key={key} 
+                                            name={key} 
                                             positions={companies[key].positions} 
                                             description={companies[key].description}
                                             startTime={logger[key].startTime}
