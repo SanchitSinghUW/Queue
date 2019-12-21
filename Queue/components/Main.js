@@ -47,8 +47,6 @@ export default function Main() {
                             />});
     }
 
-
-
     return (
         <View style={styles.container}>
             {getCards()}
