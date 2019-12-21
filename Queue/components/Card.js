@@ -1,7 +1,43 @@
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import React, { useEffect } from 'react';
+import { StyleSheet, Text, View, TouchableOpacity} from 'react-native';
 
 export default function Card(props) {
+
+    const [people, setPeople] = React.useState(0);
+
+    getPeople = async () => {
+        try {
+
+        } catch(e) {
+
+        }
+    };
+
+    clickJoin = async () => {
+        try {
+
+        } catch(e) {
+
+        }
+    };
+
+    clickLeave = async () => {
+        try {
+            
+        } catch(e) {
+
+        }
+    };
+
+    getCount = async () => {
+        try {
+
+        } catch(e) {
+
+        }
+    };
+
+    useEffect(); 
 
     const average = () => {
         let now = new Date();
@@ -15,7 +51,10 @@ export default function Card(props) {
         <View style={styles.container}>
             <Text>{props.name}</Text>
             <Text>{average()}</Text>
-            <Text>{props.countQueued - props.countDequeued + " people"}</Text>
+            <Text>{people + " people"}</Text>
+            <TouchableOpacity><Text>Join</Text></TouchableOpacity>
+            <TouchableOpacity><Text>Leave</Text></TouchableOpacity>
+            <Text></Text>
         </View>
     );
 }
