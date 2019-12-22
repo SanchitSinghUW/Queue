@@ -3,24 +3,26 @@ import { StyleSheet, Text, View } from 'react-native';
 import Main from './components/Main';
 
 export default function App() {
+  const [socket, setSocket] = React.useState(new WebSocket('wss://hlxwa7203m.execute-api.us-west-2.amazonaws.com/Test'));
 
-  storeData = async (SessionID) => {
-    try {
-      await AsyncStorage.setItem('SessionID', SessionID);
-    } catch (error) {
-      console.log(SessionID)
-      console.log(error)
+  let connect =  () => {
+    console.log("connected to " + socket.readyState);
+
+    socket.onopen = () => {
+      console.log("opened " + socket);
     }
   };
-
+  
   React.useEffect(() => {
-    let SessionID = (new Date().getTime() / 1000) * Math.floor(Math.random() * 1000);
-    storeData(SessionID);
-  });
+    return () => {
+      console.log("closed " + socket.readyState);
+      socket.close();
+    }
+  }, [connect()] );
 
   return (
     <View style={styles.container}>
-      <Main />
+      <Main socket={socket}/>
     </View>
   );
 }
