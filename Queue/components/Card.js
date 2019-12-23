@@ -37,8 +37,6 @@ export default function Card(props) {
         }
     };
 
-    useEffect(); 
-
     const average = () => {
         let now = new Date();
         let old = new Date(props.startTime);
