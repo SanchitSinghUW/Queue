@@ -13,19 +13,29 @@ export default function Card(props) {
         }
     };
 
-    clickJoin = async () => {
+    clickJoin = () => {
+        //backend relies on there to be a 0 or a 1 prepended. 1 means enque.
         try {
-
+            let data = {
+                "action": "enqueue",
+                "data": "1" + props.name
+            };
+            props.socket.send(JSON.stringify(data));
         } catch(e) {
-
+            console.log(e);
         }
     };
 
-    clickLeave = async () => {
+    clickLeave = () => {
+        //backend relies on there to be a 0 or a 1 prepended. 0 means denque.
         try {
-            
+            let data = {
+                "action": "enqueue",
+                "data": "0" + props.name
+            };
+            props.socket.send(JSON.stringify(data));
         } catch(e) {
-
+            console.log(e);
         }
     };
 
@@ -50,8 +60,8 @@ export default function Card(props) {
             <Text>{props.name}</Text>
             <Text>{average()}</Text>
             <Text>{people + " people"}</Text>
-            <TouchableOpacity><Text>Join</Text></TouchableOpacity>
-            <TouchableOpacity><Text>Leave</Text></TouchableOpacity>
+            <TouchableOpacity onPress={clickJoin}><Text>Join</Text></TouchableOpacity>
+            <TouchableOpacity onPress={clickLeave}><Text>Leave</Text></TouchableOpacity>
             <Text></Text>
         </View>
     );
