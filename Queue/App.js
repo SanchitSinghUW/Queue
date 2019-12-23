@@ -1,6 +1,7 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import Main from './components/Main';
+import './';
 
 export default function App() {
   const [socket, setSocket] = React.useState(new WebSocket('wss://hlxwa7203m.execute-api.us-west-2.amazonaws.com/Test'));

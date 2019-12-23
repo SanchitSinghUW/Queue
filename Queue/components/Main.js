@@ -2,7 +2,7 @@ import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import Card from './Card';
 
-export default function Main() {
+export default function Main(props) {
 
     const [companies, setCompanies] = React.useState({});
 
@@ -49,7 +49,8 @@ export default function Main() {
     const getCards = () => {
         //call back end and then companies is what is returned
         return Object.keys(companies).map((key) => {
-                                return <Card
+                                return <Card 
+                                            socket={props.socket}
                                             key={key} 
                                             name={key} 
                                             positions={companies[key].positions} 
