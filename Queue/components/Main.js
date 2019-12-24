@@ -6,9 +6,22 @@ export default function Main(props) {
 
     const [companies, setCompanies] = React.useState({});
 
+
+    //only updates a single card that was given from the server
+    let receiveMessage = () => {
+        props.socket.onmessage = (event) => {
+            let data = JSON.parse(event.data);
+            let companyName = data.company_name.S;
+            let line_size = data.line_size.N;
+            let newCompanies = {...companies};
+            newCompanies[companyName].people = line_size;
+            setCompanies(newCompanies);
+        }
+    }
+
     React.useEffect(() => {
         getCompanies();
-    });
+    }, [receiveMessage()]);
 
     getCompanies = async () => {
         try {
