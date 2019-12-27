@@ -1,7 +1,39 @@
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import React, { useEffect } from 'react';
+import { StyleSheet, Text, View, TouchableOpacity} from 'react-native';
 
 export default function Card(props) {
+
+    clickJoin = () => {
+        //backend relies on there to be a 0 or a 1 prepended. 1 means enque.
+        if(props.queued === "NA"){
+            try {
+                let data = {
+                    "action": "enqueue",
+                    "data": "1" + props.name
+                };
+                props.socket.send(JSON.stringify(data));
+                props.setQueued(props.name);
+            } catch(e) {
+                console.log(e);
+            }
+        }
+    };
+
+    clickLeave = () => {
+        //backend relies on there to be a 0 or a 1 prepended. 0 means denque.
+        if(props.queued === props.name){
+            try {
+                let data = {
+                    "action": "enqueue",
+                    "data": "0" + props.name
+                };
+                props.socket.send(JSON.stringify(data));
+                props.setQueued("NA");
+            } catch(e) {
+                console.log(e);
+            }
+        }
+    };
 
     const average = () => {
         let now = new Date();
@@ -15,7 +47,10 @@ export default function Card(props) {
         <View style={styles.container}>
             <Text>{props.name}</Text>
             <Text>{average()}</Text>
-            <Text>{props.countQueued - props.countDequeued + " people"}</Text>
+            <Text>{props.people + " people"}</Text>
+            <TouchableOpacity onPress={clickJoin}><Text>Join</Text></TouchableOpacity>
+            <TouchableOpacity onPress={clickLeave}><Text>Leave</Text></TouchableOpacity>
+            <Text></Text>
         </View>
     );
 }
