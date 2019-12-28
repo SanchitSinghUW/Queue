@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { StyleSheet, Text, View, TouchableOpacity} from 'react-native';
 
 export default function Card(props) {
-
+    
     clickJoin = () => {
         //backend relies on there to be a 0 or a 1 prepended. 1 means enque.
         if(props.queued === "NA"){
@@ -41,7 +41,7 @@ export default function Card(props) {
         let difference = (now.getHours()*60 - old.getHours()*60) + (now.getMinutes() - old.getMinutes());
         let dequeued = parseInt(props.countDequeued);
         let average = difference / dequeued;
-            
+
         if(isNaN(average) || dequeued === 0){
             average = 0;
         }
@@ -49,18 +49,38 @@ export default function Card(props) {
     }
 
     return (
-        <View style={styles.container}>
-            <Text>{props.name}</Text>
-            <Text>{average()}</Text>
-            <Text>{props.people + " people"}</Text>
-            <TouchableOpacity onPress={clickJoin}><Text>Join</Text></TouchableOpacity>
-            <TouchableOpacity onPress={clickLeave}><Text>Leave</Text></TouchableOpacity>
-            <Text></Text>
-        </View>
+        <View style={styles.swipe}>
+            <View style={styles.container}>
+                <Text style={styles.font}>{props.name}</Text>
+                <Text style={styles.font}>{average()}</Text>
+                <Text style={styles.font}>{props.people + " people"}</Text>
+                <TouchableOpacity onPress={clickJoin}><Text>Join</Text></TouchableOpacity>
+                <TouchableOpacity onPress={clickLeave}><Text>Leave</Text></TouchableOpacity>
+                <Text></Text>
+            </View>
+        </View> 
     );
 }
 
 const styles = StyleSheet.create({
     container: {
+        width: "100%",
+        height: "100%",
+        padding: 0,
+        display: "flex",
+        flexDirection: "row",
+        justifyContent: "space-around",
+        alignItems: "center",
     },
+    font: {
+        color: 'white',
+        fontSize: 20,
+    },
+    swipe: {
+        backgroundColor: '#181818',
+        width: "90%",
+        height: "10%",
+        margin: 3,
+        borderRadius: 10,
+    }
 });

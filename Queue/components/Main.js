@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View, TextInput } from 'react-native';
 import Card from './Card';
 
 export default function Main(props) {
@@ -14,7 +14,6 @@ export default function Main(props) {
     let receiveMessage = () => {
         props.socket.onmessage = (event) => {
             let data = JSON.parse(event.data);
-            console.log(JSON.stringify(data))
             let companyName = data.company_name.S;
             let line_size = parseInt(data.line_size.N);
             let start_time = data.startTime === undefined ? null : data.startTime.S;
@@ -44,29 +43,6 @@ export default function Main(props) {
         }
     }
 
-    // let logger = {
-    //     Apple: {
-    //             startTime: "2019-12-15T15:24:00",
-    //             countDequeued: 69,
-    //             countQueued: 100
-    //     },
-    //     Beetle: {
-    //         startTime: "2019-12-15T17:20:00",
-    //         countDequeued: 31,
-    //         countQueued: 150
-    //     },
-    //     Cat: {
-    //         startTime: "2019-12-15T16:24:00",
-    //         countDequeued: 22,
-    //         countQueued: 200
-    //     },
-    //     Zucc: {
-    //         startTime: "2019-12-16T16:24:00",
-    //         countDequeued: 50,
-    //         countQueued: 220
-    //     }
-    // }
-
     const getCards = () => {
         //call back end and then companies is what is returned
         return Object.keys(companies).map((key) => {
@@ -86,6 +62,7 @@ export default function Main(props) {
 
     return (
         <View style={styles.container}>
+            <TextInput style={styles.search}> search </TextInput>
             {getCards()}
         </View>
     );
@@ -93,5 +70,12 @@ export default function Main(props) {
 
 const styles = StyleSheet.create({
     container: {
+        height: "90%"
     },
+    search: {
+        color: 'white',
+        fontSize: 30,
+        marginBottom: 20,
+        fontWeight: "bold"
+    }
 });
