@@ -39,7 +39,12 @@ export default function Card(props) {
         let now = new Date();
         let old = new Date(props.startTime);
         let difference = (now.getHours()*60 - old.getHours()*60) + (now.getMinutes() - old.getMinutes());
-        let average = difference / props.countDequeued;
+        let dequeued = parseInt(props.countDequeued);
+        let average = difference / dequeued;
+            
+        if(isNaN(average) || dequeued === 0){
+            average = 0;
+        }
         return Math.round(average) + " mins";
     }
 

@@ -5,7 +5,7 @@ import Card from './Card';
 export default function Main(props) {
 
     const [companies, setCompanies] = React.useState({});
-    //this is a common state for all cards that resiricts only one company to be queued at a givn time
+    //this is a common state for all cards that resiricts only one company to be queued at a given time
     //NA means no one
     //queued will be set to the specific company name when that company is queued, back to NA when dequeued
     const [queued, setQueued] = React.useState("NA");
@@ -14,10 +14,15 @@ export default function Main(props) {
     let receiveMessage = () => {
         props.socket.onmessage = (event) => {
             let data = JSON.parse(event.data);
+            console.log(JSON.stringify(data))
             let companyName = data.company_name.S;
             let line_size = parseInt(data.line_size.N);
+            let start_time = data.startTime === undefined ? null : data.startTime.S;
+            let count_dequeued = data.countDequeued === undefined ? 1 : parseInt(data.countDequeued.N);
             let newCompanies = {...companies};
             newCompanies[companyName].line_size = line_size;
+            newCompanies[companyName].startTime = start_time;
+            newCompanies[companyName].countDequeued = count_dequeued;
             setCompanies(newCompanies);
         }
     }
@@ -74,6 +79,8 @@ export default function Main(props) {
                                             positions={companies[key].positions} 
                                             description={companies[key].description}
                                             people={companies[key].line_size}
+                                            startTime={companies[key].startTime}
+                                            countDequeued={companies[key].countDequeued}
                             />});
     }
 
