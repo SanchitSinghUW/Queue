@@ -46,18 +46,18 @@ export default function Main(props) {
     const getCards = () => {
         //call back end and then companies is what is returned
         return Object.keys(companies).map((key) => {
-                                return <Card 
-                                            queued={queued}
-                                            setQueued={setQueued}
-                                            socket={props.socket}
-                                            key={key} 
-                                            name={key} 
-                                            positions={companies[key].positions} 
-                                            description={companies[key].description}
-                                            people={companies[key].line_size}
-                                            startTime={companies[key].startTime}
-                                            countDequeued={companies[key].countDequeued}
-                            />});
+            return <Card 
+                        queued={queued}
+                        setQueued={setQueued}
+                        socket={props.socket}
+                        key={key} 
+                        name={key} 
+                        positions={companies[key].positions} 
+                        description={companies[key].description}
+                        people={companies[key].line_size}
+                        startTime={companies[key].startTime}
+                        countDequeued={companies[key].countDequeued}
+        />});
     }
 
     return (

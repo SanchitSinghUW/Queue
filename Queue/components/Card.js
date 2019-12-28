@@ -1,8 +1,16 @@
 import React, { useEffect } from 'react';
 import { StyleSheet, Text, View, TouchableOpacity} from 'react-native';
+import Swipeable from 'react-native-swipeable-row';
 
 export default function Card(props) {
-    
+
+    const leftContent = 
+        <View style={styles.left}>
+        </View>;
+    const rightContent = 
+        <View style={styles.right}>
+        </View>;
+
     clickJoin = () => {
         //backend relies on there to be a 0 or a 1 prepended. 1 means enque.
         if(props.queued === "NA"){
@@ -49,7 +57,7 @@ export default function Card(props) {
     }
 
     return (
-        <View style={styles.swipe}>
+        <Swipeable style={styles.swipe} leftContent={leftContent} rightContent={rightContent}>
             <View style={styles.container}>
                 <Text style={styles.font}>{props.name}</Text>
                 <Text style={styles.font}>{average()}</Text>
@@ -58,7 +66,7 @@ export default function Card(props) {
                 <TouchableOpacity onPress={clickLeave}><Text>Leave</Text></TouchableOpacity>
                 <Text></Text>
             </View>
-        </View> 
+        </Swipeable> 
     );
 }
 
@@ -71,16 +79,29 @@ const styles = StyleSheet.create({
         flexDirection: "row",
         justifyContent: "space-around",
         alignItems: "center",
+        backgroundColor: '#181818',
+        borderRadius: 10,
     },
     font: {
         color: 'white',
         fontSize: 20,
     },
     swipe: {
-        backgroundColor: '#181818',
         width: "90%",
         height: "10%",
         margin: 3,
+    },
+    left: {
+        backgroundColor: 'red',
+        width: "80%",
+        height: "100%",
         borderRadius: 10,
+    },
+    right: {
+        backgroundColor: 'green',
+        width: "100%",
+        height: "100%",
+        borderRadius: 10,
+        marginLeft: 25
     }
 });
