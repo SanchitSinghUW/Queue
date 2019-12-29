@@ -1,9 +1,13 @@
 import React, { useEffect } from 'react';
-import { StyleSheet, Text, View, TouchableOpacity} from 'react-native';
+import { StyleSheet, Text, View, Dimensions} from 'react-native';
 import Swipeable from 'react-native-swipeable-row';
+import { setLightEstimationEnabled } from 'expo/build/AR';
+
+
+const screenHeight = Dimensions.get('window').height;
+const cardHeight = screenHeight / 10;
 
 export default function Card(props) {
-
     const leftContent = 
         <View style={styles.left}>
             <Text style={styles.leftFont}>LEAVE</Text>
@@ -51,13 +55,21 @@ export default function Card(props) {
         return Math.round(value) + " mins";
     }
 
+    let cardStyle = [];
+    cardStyle.push(styles.container);
+    if(props.queued === props.name){
+        cardStyle.push(styles.selectedCardColor);
+    }else{
+        cardStyle.push(styles.defaultCardColor);
+    }
+
     return (
         <Swipeable style={styles.swipe} 
                     leftContent={leftContent} 
                     rightContent={rightContent}
                     onLeftActionRelease={clickLeave}
                     onRightActionRelease={clickJoin}>
-            <View style={styles.container}>
+            <View style={cardStyle}>
                 <Text style={styles.font}>{props.name}</Text>
                 <Text style={styles.font}>{average()}</Text>
                 <Text style={styles.font}>{props.people + " people"}</Text>
@@ -76,19 +88,26 @@ const styles = StyleSheet.create({
         flexDirection: "row",
         justifyContent: "space-around",
         alignItems: "center",
-        backgroundColor: '#181818',
         borderRadius: 10,
+    },
+    defaultCardColor: {
+        backgroundColor: '#181818',
+
+    },
+    selectedCardColor: {
+        backgroundColor: 'green',
+
     },
     font: {
         color: 'white',
         fontSize: 20,
     },
     swipe: {
-        margin: 2,
-        height: "100%"
+        height: cardHeight,
+        margin: 2
     },
     left: {
-        backgroundColor: 'red',
+        backgroundColor: 'white',
         width: "93%",
         height: "100%",
         borderRadius: 10,
@@ -99,11 +118,11 @@ const styles = StyleSheet.create({
         alignItems: "flex-end"
     },
     right: {
-        backgroundColor: 'green',
+        backgroundColor: 'white',
         width: "100%",
         height: "100%",
         borderRadius: 10,
-        marginLeft: 15,
+        marginLeft: 25,
         display: "flex",
         justifyContent: "center",
         padding: 5

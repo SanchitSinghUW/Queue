@@ -14,7 +14,6 @@ export default function Main(props) {
     let receiveMessage = () => {
         props.socket.onmessage = (event) => {
             let data = JSON.parse(event.data);
-            console.log(data);
             let companyName = data.company_name.S;
             let line_size = parseInt(data.line_size.N);
             let totalDifference = data.totalDifference === undefined ? 0 : parseInt(data.totalDifference.N);
@@ -61,22 +60,13 @@ export default function Main(props) {
         />});
     }
 
-    // return (
-    //     <View style={styles.container}>
-    //         <TextInput style={styles.search}> search </TextInput>
-    //         {getCards()}
-    //     </View>
-    // );
-
     return (
         <View style={styles.container}>
             <TextInput style={styles.search}> search </TextInput>
             <FlatList 
-                style={styles.scroll}
                 data={Object.keys(companies)}
                 renderItem={( key ) => (
-                    <View style={styles.cell}>
-                        <Card 
+                    <Card 
                         queued={queued}
                         setQueued={setQueued}
                         socket={props.socket}
@@ -87,7 +77,6 @@ export default function Main(props) {
                         people={companies[key.item].line_size}
                         totalDifference={companies[key.item].totalDifference}
                         countDequeued={companies[key.item].countDequeued}/>
-                    </View>
                 )}
                 keyExtractor={key => key}
             />
@@ -105,13 +94,5 @@ const styles = StyleSheet.create({
         fontSize: 36,
         marginBottom: 15,
         fontWeight: "bold"
-    },
-    scroll: {
-        height: "100%",
-        width: "100%"
-    },
-    cell: {
-        margin: 0,
-        height: "40%"
     }
 });
