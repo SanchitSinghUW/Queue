@@ -6,9 +6,11 @@ export default function Card(props) {
 
     const leftContent = 
         <View style={styles.left}>
+            <Text style={styles.leftFont}>LEAVE</Text>
         </View>;
     const rightContent = 
         <View style={styles.right}>
+            <Text style={styles.rightFont}>JOIN</Text>
         </View>;
 
     clickJoin = () => {
@@ -44,26 +46,21 @@ export default function Card(props) {
     };
 
     const average = () => {
-        let now = new Date();
-        let old = new Date(props.startTime);
-        let difference = (now.getHours()*60 - old.getHours()*60) + (now.getMinutes() - old.getMinutes());
-        let dequeued = parseInt(props.countDequeued);
-        let average = difference / dequeued;
-
-        if(isNaN(average) || dequeued === 0){
-            average = 0;
-        }
-        return Math.round(average) + " mins";
+        let value = props.totalDifference / props.countDequeued;
+        value = isNaN(value) ? 0 : value;
+        return Math.round(value) + " mins";
     }
 
     return (
-        <Swipeable style={styles.swipe} leftContent={leftContent} rightContent={rightContent}>
+        <Swipeable style={styles.swipe} 
+                    leftContent={leftContent} 
+                    rightContent={rightContent}
+                    onLeftActionRelease={clickLeave}
+                    onRightActionRelease={clickJoin}>
             <View style={styles.container}>
                 <Text style={styles.font}>{props.name}</Text>
                 <Text style={styles.font}>{average()}</Text>
                 <Text style={styles.font}>{props.people + " people"}</Text>
-                <TouchableOpacity onPress={clickJoin}><Text>Join</Text></TouchableOpacity>
-                <TouchableOpacity onPress={clickLeave}><Text>Leave</Text></TouchableOpacity>
                 <Text></Text>
             </View>
         </Swipeable> 
@@ -87,21 +84,36 @@ const styles = StyleSheet.create({
         fontSize: 20,
     },
     swipe: {
-        width: "90%",
-        height: "10%",
-        margin: 3,
+        margin: 2,
+        height: "100%"
     },
     left: {
         backgroundColor: 'red',
-        width: "80%",
+        width: "93%",
         height: "100%",
         borderRadius: 10,
+        marginRight: 15,
+        display: "flex",
+        justifyContent: "center",
+        padding: 5,
+        alignItems: "flex-end"
     },
     right: {
         backgroundColor: 'green',
         width: "100%",
         height: "100%",
         borderRadius: 10,
-        marginLeft: 25
+        marginLeft: 15,
+        display: "flex",
+        justifyContent: "center",
+        padding: 5
+    },
+    rightFont: {
+        fontSize: 25,
+        marginLeft: 20
+    },
+    leftFont: {
+        fontSize: 25,
+        marginRight: 20
     }
 });

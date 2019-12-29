@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View, TextInput } from 'react-native';
+import { StyleSheet, Text, View, TextInput, FlatList } from 'react-native';
 import Card from './Card';
 
 export default function Main(props) {
@@ -14,13 +14,14 @@ export default function Main(props) {
     let receiveMessage = () => {
         props.socket.onmessage = (event) => {
             let data = JSON.parse(event.data);
+            console.log(data);
             let companyName = data.company_name.S;
             let line_size = parseInt(data.line_size.N);
-            let start_time = data.startTime === undefined ? null : data.startTime.S;
+            let totalDifference = data.totalDifference === undefined ? 0 : parseInt(data.totalDifference.N);
             let count_dequeued = data.countDequeued === undefined ? 1 : parseInt(data.countDequeued.N);
             let newCompanies = {...companies};
             newCompanies[companyName].line_size = line_size;
-            newCompanies[companyName].startTime = start_time;
+            newCompanies[companyName].totalDifference = totalDifference;
             newCompanies[companyName].countDequeued = count_dequeued;
             setCompanies(newCompanies);
         }
@@ -55,27 +56,62 @@ export default function Main(props) {
                         positions={companies[key].positions} 
                         description={companies[key].description}
                         people={companies[key].line_size}
-                        startTime={companies[key].startTime}
+                        totalDifference={companies[key].totalDifference}
                         countDequeued={companies[key].countDequeued}
         />});
     }
 
+    // return (
+    //     <View style={styles.container}>
+    //         <TextInput style={styles.search}> search </TextInput>
+    //         {getCards()}
+    //     </View>
+    // );
+
     return (
         <View style={styles.container}>
             <TextInput style={styles.search}> search </TextInput>
-            {getCards()}
+            <FlatList 
+                style={styles.scroll}
+                data={Object.keys(companies)}
+                renderItem={( key ) => (
+                    <View style={styles.cell}>
+                        <Card 
+                        queued={queued}
+                        setQueued={setQueued}
+                        socket={props.socket}
+                        key={key.item} 
+                        name={key.item} 
+                        positions={companies[key.item].positions} 
+                        description={companies[key.item].description}
+                        people={companies[key.item].line_size}
+                        totalDifference={companies[key.item].totalDifference}
+                        countDequeued={companies[key.item].countDequeued}/>
+                    </View>
+                )}
+                keyExtractor={key => key}
+            />
         </View>
     );
 }
 
 const styles = StyleSheet.create({
     container: {
-        height: "90%"
+        height: "90%",
+        width: "100%"
     },
     search: {
         color: 'white',
-        fontSize: 30,
-        marginBottom: 20,
+        fontSize: 36,
+        marginBottom: 15,
         fontWeight: "bold"
+    },
+    scroll: {
+        height: "100%",
+        width: "100%"
+    },
+    cell: {
+        margin: 0,
+        height: "40%"
     }
 });
