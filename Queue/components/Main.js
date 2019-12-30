@@ -1,6 +1,8 @@
 import React from 'react';
-import { StyleSheet, Text, View, TextInput, FlatList } from 'react-native';
+import { StyleSheet, Text, View, TextInput, FlatList, Button } from 'react-native';
+import Modal from 'react-native-modal';
 import Card from './Card';
+import Crowdsource from './Crowdsource';
 
 export default function Main(props) {
 
@@ -9,6 +11,8 @@ export default function Main(props) {
     //NA means no one
     //queued will be set to the specific company name when that company is queued, back to NA when dequeued
     const [queued, setQueued] = React.useState("NA");
+    const [popup, setPopup] = React.useState(false);
+    const [company, setCompany] = React.useState("");
 
     //only updates a single card that was given from the server
     let receiveMessage = () => {
@@ -32,7 +36,7 @@ export default function Main(props) {
 
     getCompanies = async () => {
         try {
-            let response = await fetch("https://5ch9sufu53.execute-api.us-west-2.amazonaws.com/testing");
+            let response = await fetch("https://5ch9sufu53.execute-api.us-west-2.amazonaws.com/testing/getcompanies");
             if(!response.ok) {
                 console.log(response);
             }
@@ -43,30 +47,24 @@ export default function Main(props) {
         }
     }
 
-    const getCards = () => {
-        //call back end and then companies is what is returned
-        return Object.keys(companies).map((key) => {
-            return <Card 
-                        queued={queued}
-                        setQueued={setQueued}
-                        socket={props.socket}
-                        key={key} 
-                        name={key} 
-                        positions={companies[key].positions} 
-                        description={companies[key].description}
-                        people={companies[key].line_size}
-                        totalDifference={companies[key].totalDifference}
-                        countDequeued={companies[key].countDequeued}
-        />});
-    }
-
     return (
         <View style={styles.container}>
             <TextInput style={styles.search}> search </TextInput>
+            <Modal
+                style={styles.modal}
+                isVisible={popup}
+            >
+                <Crowdsource 
+                    setPopup={setPopup}
+                    company={company}
+                />
+            </Modal>
             <FlatList 
                 data={Object.keys(companies)}
                 renderItem={( key ) => (
                     <Card 
+                        setPopup={setPopup}
+                        setCompany={setCompany}
                         queued={queued}
                         setQueued={setQueued}
                         socket={props.socket}
@@ -76,7 +74,8 @@ export default function Main(props) {
                         description={companies[key.item].description}
                         people={companies[key.item].line_size}
                         totalDifference={companies[key.item].totalDifference}
-                        countDequeued={companies[key.item].countDequeued}/>
+                        countDequeued={companies[key.item].countDequeued}
+                    />
                 )}
                 keyExtractor={key => key}
             />
@@ -94,5 +93,8 @@ const styles = StyleSheet.create({
         fontSize: 36,
         marginBottom: 15,
         fontWeight: "bold"
+    },
+    modal: {
+
     }
 });

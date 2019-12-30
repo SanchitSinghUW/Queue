@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react';
 import { StyleSheet, Text, View, Dimensions} from 'react-native';
 import Swipeable from 'react-native-swipeable-row';
-import { setLightEstimationEnabled } from 'expo/build/AR';
 
 
 const screenHeight = Dimensions.get('window').height;
@@ -43,6 +42,8 @@ export default function Card(props) {
                 };
                 props.socket.send(JSON.stringify(data));
                 props.setQueued("NA");
+                props.setPopup(true);
+                props.setCompany(props.name)
             } catch(e) {
                 console.log(e);
             }
@@ -104,7 +105,9 @@ const styles = StyleSheet.create({
     },
     swipe: {
         height: cardHeight,
-        margin: 2
+        marginTop: 5,
+        marginLeft: 5,
+        marginRight: 5
     },
     left: {
         backgroundColor: 'white',
