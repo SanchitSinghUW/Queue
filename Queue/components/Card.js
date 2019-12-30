@@ -1,12 +1,14 @@
 import React, { useEffect } from 'react';
-import { StyleSheet, Text, View, Dimensions} from 'react-native';
+import { StyleSheet, Text, View, Dimensions, TouchableOpacity} from 'react-native';
 import Swipeable from 'react-native-swipeable-row';
-
+import Collapsible from 'react-native-collapsible';
 
 const screenHeight = Dimensions.get('window').height;
 const cardHeight = screenHeight / 10;
 
 export default function Card(props) {
+    const [notVisible, setVisible] = React.useState(true);
+
     const leftContent = 
         <View style={styles.left}>
             <Text style={styles.leftFont}>LEAVE</Text>
@@ -65,18 +67,25 @@ export default function Card(props) {
     }
 
     return (
-        <Swipeable style={styles.swipe} 
-                    leftContent={leftContent} 
-                    rightContent={rightContent}
-                    onLeftActionRelease={clickLeave}
-                    onRightActionRelease={clickJoin}>
-            <View style={cardStyle}>
-                <Text style={styles.font}>{props.name}</Text>
-                <Text style={styles.font}>{average()}</Text>
-                <Text style={styles.font}>{props.people + " people"}</Text>
-                <Text></Text>
-            </View>
-        </Swipeable> 
+        <View>
+                <Swipeable style={styles.swipe} 
+                            leftContent={leftContent} 
+                            rightContent={rightContent}
+                            onLeftActionRelease={clickLeave}
+                            onRightActionRelease={clickJoin}>
+                    <TouchableOpacity onPress={() => {setVisible(!notVisible)}}>
+                        <View style={cardStyle}>
+                            <Text style={styles.font}>{props.name}</Text>
+                            <Text style={styles.font}>{average()}</Text>
+                            <Text style={styles.font}>{props.people + " people"}</Text>
+                            <Text></Text>
+                        </View>
+                    </TouchableOpacity> 
+                </Swipeable>
+            <Collapsible collapsed={notVisible}>
+                <Text style={styles.contentColor}>text</Text>
+            </Collapsible>
+        </View>
     );
 }
 
@@ -137,5 +146,8 @@ const styles = StyleSheet.create({
     leftFont: {
         fontSize: 25,
         marginRight: 20
+    },
+    contentColor: {
+        color: 'white'
     }
 });

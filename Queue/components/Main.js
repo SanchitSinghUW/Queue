@@ -13,6 +13,7 @@ export default function Main(props) {
     const [queued, setQueued] = React.useState("NA");
     const [popup, setPopup] = React.useState(false);
     const [company, setCompany] = React.useState("");
+    //const [activeSessions, setSessions] = React.useState([]);
 
     //only updates a single card that was given from the server
     let receiveMessage = () => {
@@ -46,6 +47,61 @@ export default function Main(props) {
             console.log(e);
         }
     }
+
+    //let data = Object.keys(companies);
+
+    // let renderTitle = (key) => {
+    //     return (
+    //         <Card 
+    //             setPopup={setPopup}
+    //             setCompany={setCompany}
+    //             queued={queued}
+    //             setQueued={setQueued}
+    //             socket={props.socket}
+    //             key={key} 
+    //             name={key} 
+    //             positions={companies[key].positions} 
+    //             description={companies[key].description}
+    //             people={companies[key].line_size}
+    //             totalDifference={companies[key].totalDifference}
+    //             countDequeued={companies[key].countDequeued}
+    //         />
+    //     )
+    // }
+
+    // let renderContent = () => {
+    //     return (
+    //         <Text style={styles.color}>This is some data</Text>
+    //     )
+    // };
+
+    // let updateSections = activeSections => {
+    //     console.log("got licked");
+    //     setSessions(activeSections);
+    // };
+
+    // return (
+    //     <View style={styles.container}>
+    //         <TextInput style={styles.search}> search </TextInput>
+    //         <Modal
+    //             style={styles.modal}
+    //             isVisible={popup}
+    //         >
+    //         <Crowdsource 
+    //             setPopup={setPopup}
+    //             company={company}
+    //         />
+    //         </Modal>
+    //         <Accordion
+    //                 sections={data}
+    //                 activeSections={activeSessions}
+    //                 renderSectionTitle={()=> {}}
+    //                 renderContent={renderContent}
+    //                 renderHeader={renderTitle}
+    //                 onChange={updateSections}
+    //             />
+    //     </View>
+    // )
 
     return (
         <View style={styles.container}>
@@ -93,8 +149,5 @@ const styles = StyleSheet.create({
         fontSize: 36,
         marginBottom: 15,
         fontWeight: "bold"
-    },
-    modal: {
-
     }
 });
