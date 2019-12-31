@@ -3,6 +3,7 @@ import { StyleSheet, Text, View, TextInput, FlatList, Button } from 'react-nativ
 import Modal from 'react-native-modal';
 import Card from './Card';
 import Crowdsource from './Crowdsource';
+import Authorization from './Authorization';
 
 export default function Main(props) {
 
@@ -13,7 +14,7 @@ export default function Main(props) {
     const [queued, setQueued] = React.useState("NA");
     const [popup, setPopup] = React.useState(false);
     const [company, setCompany] = React.useState("");
-    //const [activeSessions, setSessions] = React.useState([]);
+    const [notAuthorized, setAuthorize] = React.useState(true);
 
     //only updates a single card that was given from the server
     let receiveMessage = () => {
@@ -103,8 +104,32 @@ export default function Main(props) {
     //     </View>
     // )
 
+    let authenticateData = async (password) => {
+        try {
+            let url = "https://5ch9sufu53.execute-api.us-west-2.amazonaws.com/testing/authenticate?code=";
+            //console.log(password);
+            url += password; 
+            let response = await fetch(url);
+            if(!response.ok) {
+                console.log(response);
+            }
+            let data = await response.json();
+            if(data === "passed"){
+                setAuthorize(false);
+            }
+        } catch(e) {
+            console.log(e);
+        }
+    }
+
     return (
         <View style={styles.container}>
+            <Modal
+                style={styles.modal}
+                isVisible={notAuthorized}
+            >
+                <Authorization authenticateData={authenticateData}/>
+            </Modal>
             <TextInput style={styles.search}> search </TextInput>
             <Modal
                 style={styles.modal}

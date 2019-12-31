@@ -65,7 +65,6 @@ export default function Crowdsource(props) {
 
 const styles = StyleSheet.create({
     container: {
-    
     },
     colour: {
         color: "white"

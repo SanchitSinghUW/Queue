@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { StyleSheet, Text, View, Dimensions, TouchableOpacity} from 'react-native';
 import Swipeable from 'react-native-swipeable-row';
 import Collapsible from 'react-native-collapsible';
-
+import BigCard from './BigCard';
 const screenHeight = Dimensions.get('window').height;
 const cardHeight = screenHeight / 10;
 
@@ -52,6 +52,10 @@ export default function Card(props) {
         }
     };
 
+    clickCard = () => {
+        setVisible(!notVisible);
+    }
+
     const average = () => {
         let value = props.totalDifference / props.countDequeued;
         value = isNaN(value) ? 0 : value;
@@ -59,12 +63,18 @@ export default function Card(props) {
     }
 
     let cardStyle = [];
-    cardStyle.push(styles.container);
+    if(!notVisible){
+        cardStyle.push(styles.containerClicked);
+    } else {
+        cardStyle.push(styles.container);
+    }
     if(props.queued === props.name){
         cardStyle.push(styles.selectedCardColor);
     }else{
         cardStyle.push(styles.defaultCardColor);
     }
+
+
 
     return (
         <View>
@@ -73,7 +83,7 @@ export default function Card(props) {
                             rightContent={rightContent}
                             onLeftActionRelease={clickLeave}
                             onRightActionRelease={clickJoin}>
-                    <TouchableOpacity onPress={() => {setVisible(!notVisible)}}>
+                    <TouchableOpacity onPress={clickCard}>
                         <View style={cardStyle}>
                             <Text style={styles.font}>{props.name}</Text>
                             <Text style={styles.font}>{average()}</Text>
@@ -83,7 +93,9 @@ export default function Card(props) {
                     </TouchableOpacity> 
                 </Swipeable>
             <Collapsible collapsed={notVisible}>
-                <Text style={styles.contentColor}>text</Text>
+                <BigCard 
+                    description={props.description}
+                />
             </Collapsible>
         </View>
     );
@@ -100,6 +112,17 @@ const styles = StyleSheet.create({
         alignItems: "center",
         borderRadius: 10,
     },
+    containerClicked: {
+        width: "100%",
+        height: "100%",
+        padding: 0,
+        display: "flex",
+        flexDirection: "row",
+        justifyContent: "space-around",
+        alignItems: "center",
+        borderTopLeftRadius: 10,
+        borderTopRightRadius: 10
+    },
     defaultCardColor: {
         backgroundColor: '#181818',
 
@@ -114,7 +137,7 @@ const styles = StyleSheet.create({
     },
     swipe: {
         height: cardHeight,
-        marginTop: 5,
+        marginTop: 10,
         marginLeft: 5,
         marginRight: 5
     },
