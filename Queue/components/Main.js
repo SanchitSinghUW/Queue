@@ -49,61 +49,6 @@ export default function Main(props) {
         }
     }
 
-    //let data = Object.keys(companies);
-
-    // let renderTitle = (key) => {
-    //     return (
-    //         <Card 
-    //             setPopup={setPopup}
-    //             setCompany={setCompany}
-    //             queued={queued}
-    //             setQueued={setQueued}
-    //             socket={props.socket}
-    //             key={key} 
-    //             name={key} 
-    //             positions={companies[key].positions} 
-    //             description={companies[key].description}
-    //             people={companies[key].line_size}
-    //             totalDifference={companies[key].totalDifference}
-    //             countDequeued={companies[key].countDequeued}
-    //         />
-    //     )
-    // }
-
-    // let renderContent = () => {
-    //     return (
-    //         <Text style={styles.color}>This is some data</Text>
-    //     )
-    // };
-
-    // let updateSections = activeSections => {
-    //     console.log("got licked");
-    //     setSessions(activeSections);
-    // };
-
-    // return (
-    //     <View style={styles.container}>
-    //         <TextInput style={styles.search}> search </TextInput>
-    //         <Modal
-    //             style={styles.modal}
-    //             isVisible={popup}
-    //         >
-    //         <Crowdsource 
-    //             setPopup={setPopup}
-    //             company={company}
-    //         />
-    //         </Modal>
-    //         <Accordion
-    //                 sections={data}
-    //                 activeSections={activeSessions}
-    //                 renderSectionTitle={()=> {}}
-    //                 renderContent={renderContent}
-    //                 renderHeader={renderTitle}
-    //                 onChange={updateSections}
-    //             />
-    //     </View>
-    // )
-
     let authenticateData = async (password) => {
         try {
             let url = "https://5ch9sufu53.execute-api.us-west-2.amazonaws.com/testing/authenticate?code=";
@@ -125,8 +70,8 @@ export default function Main(props) {
     return (
         <View style={styles.container}>
             <Modal
-                style={styles.modal}
                 isVisible={notAuthorized}
+                backdropOpacity={0.9}
             >
                 <Authorization authenticateData={authenticateData}/>
             </Modal>
@@ -134,6 +79,7 @@ export default function Main(props) {
             <Modal
                 style={styles.modal}
                 isVisible={popup}
+                backdropOpacity={0.9}
             >
                 <Crowdsource 
                     setPopup={setPopup}
@@ -167,7 +113,7 @@ export default function Main(props) {
 const styles = StyleSheet.create({
     container: {
         height: "90%",
-        width: "100%"
+        width: "100%",
     },
     search: {
         color: 'white',

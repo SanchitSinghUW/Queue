@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View, Button } from 'react-native';
+import { StyleSheet, Text, View, Button, TouchableOpacity } from 'react-native';
 
 
 
@@ -37,40 +37,101 @@ export default function Crowdsource(props) {
     }
 
     return (
-        <View style={styles.container}>
-            <View style={styles.inLine}>
+        <View style={styles.overall}>
+            <View style={styles.container}>
                 <Text style={styles.colour}>Internships</Text>
-                <Button title="Yes" onPress={() => {data.internship = "true"}} />
-                <Button title="No" onPress={() => {data.internship = "false"}} />
+                <View style={styles.buttons}>
+                    <TouchableOpacity onPress={() => {data.internship = "true"}}>
+                        <Text style={styles.colour}>Yes</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity onPress={() => {data.internship = "false"}}>
+                        <Text style={styles.colour}>No</Text>
+                    </TouchableOpacity>
+                </View>
             </View>
-            <View style={styles.inLine}>
+            <View style={styles.container}>
                 <Text style={styles.colour}>Sponsorship</Text>
-                <Button title="Yes" onPress={() => {data.sponsorship = "true"}} />
-                <Button title="No" onPress={() => {data.sponsorship = "false"}} />
+                <View style={styles.buttons}>
+                    <TouchableOpacity onPress={() => {data.sponsorship = "true"}}>
+                        <Text style={styles.colour}>Yes</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity onPress={() => {data.sponsorship = "false"}}>
+                        <Text style={styles.colour}>No</Text>
+                    </TouchableOpacity>
+                </View>
             </View>
-            <View style={styles.inLine}>
+            <View style={styles.container}>
                 <Text style={styles.colour}>Full-time</Text>
-                <Button title="Yes" onPress={() => {data["full-time"] = "true"}} />
-                <Button title="No" onPress={() => {data["full-time"] = "false"}} />
+                <View style={styles.buttons}>
+                    <TouchableOpacity onPress={() => {data["full-time"] = "true"}}>
+                        <Text style={styles.colour}>Yes</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity onPress={() => {data["full-time"] = "false"}}>
+                        <Text style={styles.colour}>No</Text>
+                    </TouchableOpacity>
+                </View>
             </View>
-            <View style={styles.inLine}>
+            <View style={styles.container}>
                 <Text style={styles.colour}>Part-time</Text>
-                <Button title="Yes" onPress={() => {data["part-time"] = "true"}} />
-                <Button title="No" onPress={() => {data["part-time"] = "false"}} />
+                <View style={styles.buttons}>
+                    <TouchableOpacity onPress={() => {data["part-time"] = "true"}}>
+                        <Text style={styles.colour}>Yes</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity onPress={() => {data["part-time"] = "false"}}>
+                        <Text style={styles.colour}>No</Text>
+                    </TouchableOpacity>
+                </View>
             </View>
-            <Button title="Done" onPress={clickDone} />
+            <TouchableOpacity onPress={clickDone} style={styles.bigButton}>
+                <Text style={styles.bigButtonFont}>Submit</Text>
+            </TouchableOpacity>
         </View>
     );
 }
 
 const styles = StyleSheet.create({
-    container: {
-    },
     colour: {
-        color: "white"
+        color: "white",
+        margin: 2,
+        padding: 2
     },
-    inLine: {
+    container: {
         display: "flex",
-        flexDirection: "row"
+        flexDirection: "row",
+        alignItems: "center",
+        justifyContent: "space-around"
+    },
+    overall: {
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        justifyContent: "space-around",
+        backgroundColor: "#181818",
+        borderRadius: 15,
+    },
+    buttons: {
+        display: "flex",
+        flexDirection: "row",
+        justifyContent: "space-around",
+    },
+    bigButton: {
+        backgroundColor: 'green',
+        borderRadius: 5,
+        borderWidth: 2,
+        borderStyle: "solid",
+        color: 'white',
+        width: "30%",
+        height: "20%",
+        padding: 4,
+        fontWeight: "bold",
+        margin: 3,
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center"
+    },
+    bigButtonFont: {
+        fontWeight: "900",
+        color: "white",
+        fontSize: 25
     }
 });

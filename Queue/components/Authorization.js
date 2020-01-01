@@ -13,17 +13,62 @@ export default function Authorization(props) {
     }
 
     return (
-        <View style={styles.container}>
+        <View style={styles.form}>
             <Text style={styles.font}>Join a Career Fair</Text>
-            <TextInput placeholder="Enter Fair ID" value={code} onChangeText={changeCode} style={styles.font} keyboardType={'numeric'}/>
-            <TouchableOpacity onPress={authenticateData}>
-                <Text style={styles.font}>Join</Text>
+            <TextInput placeholder="Enter Fair ID" value={code} onChangeText={changeCode} 
+                style={[styles.font, styles.input]} keyboardType={'numeric'}/>
+            <TouchableOpacity onPress={authenticateData} style={styles.button}>
+                <Text style={[styles.font, styles.buttonFont]}>Join</Text>
             </TouchableOpacity>
         </View>
     );
 }
 const styles = StyleSheet.create({
     font: {
-        color: "white"
+        color: "white",
+        fontSize: 25
     },
+    form: {
+        width: "100%",
+        height: "40%",
+        padding: 8,
+        borderRadius: 15,
+        borderWidth: 2,
+        borderStyle: "solid",
+        fontFamily: 'sans-serif',      
+        display: 'flex',
+        justifyContent: "space-around",
+        alignItems: "center",
+        flexDirection: "column",
+        backgroundColor: "#181818"
+    },
+    button: {
+        backgroundColor: 'green',
+        borderRadius: 5,
+        borderWidth: 2,
+        borderStyle: "solid",
+        color: 'white',
+        width: "30%",
+        height: "20%",
+        padding: 4,
+        fontWeight: "bold",
+        margin: 3,
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center"
+    },
+    buttonFont: {
+        fontWeight: "900"
+    },
+    input: {
+        width: "60%",
+        height: "20%",
+
+        borderRadius: 5,
+        borderWidth: 2,
+        borderStyle: "solid",
+        borderColor: "white",
+        padding: 3,
+        margin: 8
+    }
 });
