@@ -1,0 +1,159 @@
+main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.card-label {
+  width: 480px;
+  height: 80px;
+  font-family: 'Open Sans', sans-serif;
+
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.card-open {
+  width: 550px;
+  height: 440px;
+  margin: 10px;
+  border-radius: 15px;
+  border: 2px solid #D9E5F0;
+  box-shadow: 0 2px 1px 0 rgba(0,0,0,0.1);
+  transition: 0.3s;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.card-closed {
+  width: 550px;
+  height: 80px;
+  margin: 10px;
+  border-radius: 15px;
+  border: 1px solid #D9E5F0;
+  box-shadow: 0 2px 1px 0 rgba(0,0,0,0.1);
+  transition: 0.3s;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.card-company {
+  padding-right: 40px;
+  width: 30%;
+  height: 70px;
+  font-size: 30px;
+  font-weight: bold;
+  color: #779BBA;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.card-aspect {
+  width: 25%;
+  height: 70px;
+  text-align: center;
+
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: center;
+  align-items: center;
+}
+
+.number {
+  font-size: 26px;
+  height: 40px;
+  width: 30px;
+  color: #89AFCF;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.material-icons.md-36 {
+  height: 40px;
+  padding-right: 13px;
+  font-size: 35px;
+  color: #89AFCF;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.card-info {
+  width: 480px;
+  height: 450px;
+
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  justify-content: space-between;
+  align-content: flex-start;
+}
+
+.info-aspect {
+  height: 35px;
+  width: 40%;
+  margin-top: 20px;
+
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.aspect-name {
+  height: 60%;
+  width: 70%;
+  font-family: 'Open Sans', sans-serif;
+  font-weight: 500;
+  font-size: 20px;
+  color: #A8BFD3;
+
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.info-description {
+  height: 200px;
+  width: 100%;
+  padding-left: 7px;
+  font-family: 'Open Sans', sans-serif;
+  color: #A8BFD3;
+
+}
+
+.description-title {
+  height: 23px;
+  font-weight: 500;
+  font-size: 20px;
+  padding-top: 15px;
+}
+
+.description-text {
+  font-size: 17px;
+  font-weight: 300;
+  line-height: 1.5;
+}
+
+#complete {
+  font-size: 25px;
+  color: #A8D3BF;
+}
+
+#incomplete {
+  font-size: 25px;
+  color: #E38185;
+}
