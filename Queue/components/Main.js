@@ -51,8 +51,7 @@ export default function Main(props) {
 
     React.useEffect(() => {
         getCompanies();
-        receiveMessage();
-    }, []);
+    }, [receiveMessage()]);
 
     let authenticateData = async (password) => {
         try {
