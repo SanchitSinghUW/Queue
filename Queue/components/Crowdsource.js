@@ -1,6 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View, Button, TouchableOpacity } from 'react-native';
-
+import { StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native';
 
 
 export default function Crowdsource(props) {
@@ -42,10 +41,10 @@ export default function Crowdsource(props) {
                 <Text style={styles.colour}>Internships</Text>
                 <View style={styles.buttons}>
                     <TouchableOpacity onPress={() => {data.internship = "true"}}>
-                        <Text style={styles.colour}>Yes</Text>
+                        <Image source={require('../icons/success.png')} style={styles.image}/>
                     </TouchableOpacity>
                     <TouchableOpacity onPress={() => {data.internship = "false"}}>
-                        <Text style={styles.colour}>No</Text>
+                        <Image source={require('../icons/error.png')} style={styles.image}/>
                     </TouchableOpacity>
                 </View>
             </View>
@@ -53,10 +52,10 @@ export default function Crowdsource(props) {
                 <Text style={styles.colour}>Sponsorship</Text>
                 <View style={styles.buttons}>
                     <TouchableOpacity onPress={() => {data.sponsorship = "true"}}>
-                        <Text style={styles.colour}>Yes</Text>
+                        <Image source={require('../icons/success.png')} style={styles.image}/>
                     </TouchableOpacity>
                     <TouchableOpacity onPress={() => {data.sponsorship = "false"}}>
-                        <Text style={styles.colour}>No</Text>
+                        <Image source={require('../icons/error.png')} style={styles.image}/>
                     </TouchableOpacity>
                 </View>
             </View>
@@ -64,10 +63,10 @@ export default function Crowdsource(props) {
                 <Text style={styles.colour}>Full-time</Text>
                 <View style={styles.buttons}>
                     <TouchableOpacity onPress={() => {data["full-time"] = "true"}}>
-                        <Text style={styles.colour}>Yes</Text>
+                        <Image source={require('../icons/success.png')} style={styles.image}/>
                     </TouchableOpacity>
                     <TouchableOpacity onPress={() => {data["full-time"] = "false"}}>
-                        <Text style={styles.colour}>No</Text>
+                        <Image source={require('../icons/error.png')} style={styles.image}/>
                     </TouchableOpacity>
                 </View>
             </View>
@@ -75,10 +74,10 @@ export default function Crowdsource(props) {
                 <Text style={styles.colour}>Part-time</Text>
                 <View style={styles.buttons}>
                     <TouchableOpacity onPress={() => {data["part-time"] = "true"}}>
-                        <Text style={styles.colour}>Yes</Text>
+                        <Image source={require('../icons/success.png')} style={styles.image}/>
                     </TouchableOpacity>
                     <TouchableOpacity onPress={() => {data["part-time"] = "false"}}>
-                        <Text style={styles.colour}>No</Text>
+                        <Image source={require('../icons/error.png')} style={styles.image}/>
                     </TouchableOpacity>
                 </View>
             </View>
@@ -93,26 +92,33 @@ const styles = StyleSheet.create({
     colour: {
         color: "white",
         margin: 2,
-        padding: 2
+        padding: 2,
+        fontSize: 20
     },
     container: {
         display: "flex",
         flexDirection: "row",
         alignItems: "center",
-        justifyContent: "space-around"
+        justifyContent: "space-between",
+        width: "100%",
+        padding: 5,
+        paddingLeft: 10,
+        paddingRight: 10
     },
     overall: {
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
-        justifyContent: "space-around",
+        justifyContent: "space-between",
         backgroundColor: "#181818",
         borderRadius: 15,
+        width: "100%",
+        padding: 5
     },
     buttons: {
         display: "flex",
         flexDirection: "row",
-        justifyContent: "space-around",
+        justifyContent: "space-between",
     },
     bigButton: {
         backgroundColor: 'green',
@@ -121,7 +127,7 @@ const styles = StyleSheet.create({
         borderStyle: "solid",
         color: 'white',
         width: "30%",
-        height: "20%",
+        height: "15%",
         padding: 4,
         fontWeight: "bold",
         margin: 3,
@@ -133,5 +139,10 @@ const styles = StyleSheet.create({
         fontWeight: "900",
         color: "white",
         fontSize: 25
+    },
+    image: {
+        height: 20,
+        width: 20,
+        margin: 4
     }
 });
