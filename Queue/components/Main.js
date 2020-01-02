@@ -31,15 +31,11 @@ export default function Main(props) {
             newCompanies[companyName].totalDifference = totalDifference;
             newCompanies[companyName].countDequeued = count_dequeued;
             setCompanies(newCompanies);
-            setKeys(Object.keys(companies));
+            setKeys(Object.keys(newCompanies).sort());
         }
     }
 
-    React.useEffect(() => {
-        getCompanies();
-    }, [receiveMessage()]);
-
-    getCompanies = async () => {
+    let getCompanies = async () => {
         try {
             let response = await fetch("https://5ch9sufu53.execute-api.us-west-2.amazonaws.com/testing/getcompanies");
             if(!response.ok) {
@@ -47,10 +43,16 @@ export default function Main(props) {
             }
             let data = await response.json();
             setCompanies(data);
+            setKeys(Object.keys(data).sort());
         } catch(e) {
             console.log(e);
         }
     }
+
+    React.useEffect(() => {
+        getCompanies();
+        receiveMessage();
+    }, []);
 
     let authenticateData = async (password) => {
         try {
@@ -73,11 +75,11 @@ export default function Main(props) {
         setSearch(text);
         let tempKeys = [];
         Object.keys(companies).map((val) => {
-            if (val.toLowerCase().includes(search.toLowerCase())) {
+            if (val.toLowerCase().includes(text.toLowerCase())) {
                 tempKeys.push(val);
             }
         })
-        setKeys(tempKeys);
+        setKeys(tempKeys.sort());
     }
 
     return (
