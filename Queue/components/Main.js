@@ -15,6 +15,8 @@ export default function Main(props) {
     const [popup, setPopup] = React.useState(false);
     const [company, setCompany] = React.useState("");
     const [notAuthorized, setAuthorize] = React.useState(true);
+    const [search, setSearch] = React.useState("");
+    const [keys, setKeys] = React.useState([]);
 
     //only updates a single card that was given from the server
     let receiveMessage = () => {
@@ -29,6 +31,7 @@ export default function Main(props) {
             newCompanies[companyName].totalDifference = totalDifference;
             newCompanies[companyName].countDequeued = count_dequeued;
             setCompanies(newCompanies);
+            setKeys(Object.keys(companies));
         }
     }
 
@@ -52,7 +55,6 @@ export default function Main(props) {
     let authenticateData = async (password) => {
         try {
             let url = "https://5ch9sufu53.execute-api.us-west-2.amazonaws.com/testing/authenticate?code=";
-            //console.log(password);
             url += password; 
             let response = await fetch(url);
             if(!response.ok) {
@@ -66,6 +68,17 @@ export default function Main(props) {
             console.log(e);
         }
     }
+    
+    let changeSearch = (text) => {
+        setSearch(text);
+        let tempKeys = [];
+        Object.keys(companies).map((val) => {
+            if (val.toLowerCase().includes(search.toLowerCase())) {
+                tempKeys.push(val);
+            }
+        })
+        setKeys(tempKeys);
+    }
 
     return (
         <View style={styles.container}>
@@ -75,7 +88,15 @@ export default function Main(props) {
             >
                 <Authorization authenticateData={authenticateData}/>
             </Modal>
-            <TextInput style={styles.search}> search </TextInput>
+            <TextInput 
+                    style={styles.search} 
+                    placeholder="search" 
+                    placeholderTextColor="white" 
+                    value={search}
+                    onChangeText={changeSearch}
+                    >
+
+            </TextInput>
             <Modal
                 style={styles.modal}
                 isVisible={popup}
@@ -87,7 +108,7 @@ export default function Main(props) {
                 />
             </Modal>
             <FlatList 
-                data={Object.keys(companies)}
+                data={keys}
                 renderItem={( key ) => (
                     <Card 
                         setPopup={setPopup}
@@ -118,7 +139,7 @@ const styles = StyleSheet.create({
     search: {
         color: 'white',
         fontSize: 36,
-        marginBottom: 15,
+        margin: 5,
         fontWeight: "bold"
     }
 });
