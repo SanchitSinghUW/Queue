@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View, Button } from 'react-native';
+import { Image, StyleSheet, Text, View } from 'react-native';
 
 
 
@@ -7,25 +7,25 @@ export default function Crowdsource(props) {
     
     return (
         <View style={styles.container}>
-            <View style={styles.textBox}>
-                <View>
+                <View style={styles.infoAspect}>
                     <Text style={styles.font}>Internship</Text>
-                    <Text style={styles.font}>YES{/*later replace with*/}</Text> 
+                    <Image source={require('../icons/error.png')} style={styles.image}/>
                 </View>
-                <View>
+                <View style={styles.infoAspect}>
                     <Text style={styles.font}>Sponsorship</Text>
-                    <Text style={styles.font}>YES{/*later replace with*/}</Text> 
+                    <Image source={require('../icons/error.png')} style={styles.image}/>
                 </View>
-                <View>
+                <View style={styles.infoAspect}>
                     <Text style={styles.font}>Part-time</Text>
-                    <Text style={styles.font}>YES{/*later replace with*/}</Text> 
+                    <Image source={require('../icons/success.png')} style={styles.image}/>
                 </View>
-                <View>
+                <View style={styles.infoAspect}>
                     <Text style={styles.font}>Full-time</Text>
-                    <Text style={styles.font}>YES{/*later replace with*/}</Text> 
+                    <Image source={require('../icons/success.png')} style={styles.image}/>
                 </View>
-            </View>
-            <Text style={styles.font}>{props.description}</Text>
+                <View style={styles.description}>
+                    <Text style={styles.font}>{props.description}</Text>
+                </View>
         </View>
     );
 }
@@ -34,22 +34,41 @@ const styles = StyleSheet.create({
     container: {
         backgroundColor: '#181818',
         borderColor: '#181818',
-        padding: 0,
         display: "flex",
+        flexWrap: "wrap",
         flexDirection: "row",
-        justifyContent: "space-around",
-        alignItems: "center",
-        borderBottomLeftRadius: 10,
-        borderBottomRightRadius: 10,
+        justifyContent: "space-between",
+        alignContent: "flex-start",
         marginLeft: 5,
-        marginRight: 4.6
+        marginRight: 4.6,
+        padding: 10
     },
     font: {
         color: 'white',
-        fontSize: 12,
+        fontSize: 15,
     },
-    textBox: {
-        display: 'flex',
-        margin: 10
+    infoAspect: {
+        display: "flex",
+        flexDirection: "row",
+        alignItems: "center",
+        justifyContent: "space-around"
+    },
+    image: {
+        height: 20,
+        width: 20,
+        margin: 4
+    },
+    wrapper: {
+        width: "100%",
+        height: "100%",
+        display: "flex",
+        flexWrap: "wrap",
+        flexDirection: "row",
+        justifyContent: "center",
+        alignItems: "center",
+    },
+    description: {
+        width: "100%",
+        alignItems: "center"
     }
 });
