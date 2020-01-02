@@ -7,6 +7,8 @@ import Authorization from './Authorization';
 
 export default function Main(props) {
 
+
+    //this also contains information for crowdsource fields
     const [companies, setCompanies] = React.useState({});
     //this is a common state for all cards that resiricts only one company to be queued at a given time
     //NA means no one
@@ -106,6 +108,7 @@ export default function Main(props) {
                 <Crowdsource 
                     setPopup={setPopup}
                     company={company}
+                    allData={companies}
                 />
             </Modal>
             <FlatList 

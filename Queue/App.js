@@ -1,3 +1,12 @@
+//Authors are Albert Huang, June Lee, Sanchit Singh.
+//This is the queue app for Career Fair line analytics.
+//Backend is hosted on AWS
+
+//Things to work on:
+//We notice that the same state is printed several times, when it should just be printed once.
+//Look for places where we are redundantly setting state
+
+
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import Main from './components/Main';

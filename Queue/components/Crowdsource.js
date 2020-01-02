@@ -3,14 +3,21 @@ import { StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native';
 
 
 export default function Crowdsource(props) {
+    //THIS CODE IS HEAVILY COUPLED. WE NEED TO MAKE THIS ROBUST TO AUTOMATICALLY PULL
+    //FROM THE DB. SAME FOR BIG CARD. WE CANNOT HARD CODE LIKE THIS.
+    //ALSO, MAKE IT POSSIBLE TO SELECT AND DESELECT TO SHOW WHAT IS HIGHLIGHTED!
 
-    var data = {
-        "company": props.company,
-        "internship": "june",
-        "sponsorship": "june",
-        "full-time": "june",
-        "part-time": "june"
+    let allFields = props.allData[props.company];
+    //these are all the descriptive fields, we only care about crowdsource fields for this one
+    let notInclude = ["countDequeued", "description", "line_size", "positions", "totalDifference"];
+    let fields = {
+        "company": props.company
     }
+    Object.keys(allFields).forEach((key) => {
+        if(!notInclude.includes(key)){
+            fields[key] = "june";
+        }
+    });
 
     clickDone = async () => {
         try {
@@ -19,7 +26,7 @@ export default function Crowdsource(props) {
                 headers: {
                 'Content-Type': 'application/json',
                 },
-                body: JSON.stringify(data),
+                body: JSON.stringify(fields),
             })
             .then((response) => response.json())
             .then((data) => {
@@ -35,52 +42,34 @@ export default function Crowdsource(props) {
         props.setPopup(false);
     }
 
+    let renderFieldButtons = () => {
+        return (
+            Object.keys(fields).map((key) => {
+                if(key !== "company"){
+                return <View style={styles.container}
+                                key={key}>
+                            <Text style={styles.colour}>{key}</Text>
+                            <View style={styles.buttons}>
+                                <TouchableOpacity onPress={() => {
+                                    fields[key] = "true";
+                                    }}>
+                                    <Image source={require('../icons/success.png')} style={styles.image}/>
+                                </TouchableOpacity>
+                                <TouchableOpacity onPress={() => {
+                                    fields[key] = "false";
+                                    }}>
+                                    <Image source={require('../icons/error.png')} style={styles.image}/>
+                                </TouchableOpacity>
+                            </View>
+                        </View>
+                }
+            })
+        );
+    }
+
     return (
         <View style={styles.overall}>
-            <View style={styles.container}>
-                <Text style={styles.colour}>Internships</Text>
-                <View style={styles.buttons}>
-                    <TouchableOpacity onPress={() => {data.internship = "true"}}>
-                        <Image source={require('../icons/success.png')} style={styles.image}/>
-                    </TouchableOpacity>
-                    <TouchableOpacity onPress={() => {data.internship = "false"}}>
-                        <Image source={require('../icons/error.png')} style={styles.image}/>
-                    </TouchableOpacity>
-                </View>
-            </View>
-            <View style={styles.container}>
-                <Text style={styles.colour}>Sponsorship</Text>
-                <View style={styles.buttons}>
-                    <TouchableOpacity onPress={() => {data.sponsorship = "true"}}>
-                        <Image source={require('../icons/success.png')} style={styles.image}/>
-                    </TouchableOpacity>
-                    <TouchableOpacity onPress={() => {data.sponsorship = "false"}}>
-                        <Image source={require('../icons/error.png')} style={styles.image}/>
-                    </TouchableOpacity>
-                </View>
-            </View>
-            <View style={styles.container}>
-                <Text style={styles.colour}>Full-time</Text>
-                <View style={styles.buttons}>
-                    <TouchableOpacity onPress={() => {data["full-time"] = "true"}}>
-                        <Image source={require('../icons/success.png')} style={styles.image}/>
-                    </TouchableOpacity>
-                    <TouchableOpacity onPress={() => {data["full-time"] = "false"}}>
-                        <Image source={require('../icons/error.png')} style={styles.image}/>
-                    </TouchableOpacity>
-                </View>
-            </View>
-            <View style={styles.container}>
-                <Text style={styles.colour}>Part-time</Text>
-                <View style={styles.buttons}>
-                    <TouchableOpacity onPress={() => {data["part-time"] = "true"}}>
-                        <Image source={require('../icons/success.png')} style={styles.image}/>
-                    </TouchableOpacity>
-                    <TouchableOpacity onPress={() => {data["part-time"] = "false"}}>
-                        <Image source={require('../icons/error.png')} style={styles.image}/>
-                    </TouchableOpacity>
-                </View>
-            </View>
+            {renderFieldButtons()}
             <TouchableOpacity onPress={clickDone} style={styles.bigButton}>
                 <Text style={styles.bigButtonFont}>Submit</Text>
             </TouchableOpacity>
