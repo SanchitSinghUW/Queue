@@ -5,26 +5,34 @@ import { Image, StyleSheet, Text, View } from 'react-native';
 
 export default function Crowdsource(props) {
     
+    let allFields = props.allData[props.company];
+    let notInclude = ["countDequeued", "description", "line_size", "positions", "totalDifference"];
+    let goodFields = [];
+    Object.keys(allFields).forEach((key) => {
+        if(!notInclude.includes(key)){
+            goodFields.push(key);
+        }
+    });
+
+    let renderOptions = () => {
+        return (goodFields.map((key) => {
+            return (
+            <View style={styles.infoAspect} key={key}>
+                <Text style={styles.font}>{key}</Text>
+                {allFields[key] === "NA" ? 
+                    <Image source={require('../icons/na.png')} style={styles.image}/> : 
+                    (allFields[key] === "T" ? 
+                    <Image source={require('../icons/success.png')} style={styles.image}/> : 
+                    <Image source={require('../icons/error.png')} style={styles.image}/>)}
+            </View>);
+        }));
+    }
+
     return (
         <View style={styles.container}>
-                <View style={styles.infoAspect}>
-                    <Text style={styles.font}>Internship</Text>
-                    <Image source={require('../icons/error.png')} style={styles.image}/>
-                </View>
-                <View style={styles.infoAspect}>
-                    <Text style={styles.font}>Sponsorship</Text>
-                    <Image source={require('../icons/error.png')} style={styles.image}/>
-                </View>
-                <View style={styles.infoAspect}>
-                    <Text style={styles.font}>Part-time</Text>
-                    <Image source={require('../icons/success.png')} style={styles.image}/>
-                </View>
-                <View style={styles.infoAspect}>
-                    <Text style={styles.font}>Full-time</Text>
-                    <Image source={require('../icons/success.png')} style={styles.image}/>
-                </View>
+                {renderOptions()}
                 <View style={styles.description}>
-                    <Text style={styles.font}>{props.description}</Text>
+                    <Text style={styles.font}>{allFields.description}</Text>
                 </View>
         </View>
     );

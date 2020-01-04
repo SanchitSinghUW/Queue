@@ -94,7 +94,8 @@ export default function Card(props) {
                 </Swipeable>
             <Collapsible collapsed={notVisible}>
                 <BigCard 
-                    description={props.description}
+                    allData={props.allData}
+                    company={props.name}
                 />
             </Collapsible>
         </View>

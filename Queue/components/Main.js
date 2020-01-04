@@ -127,6 +127,7 @@ export default function Main(props) {
                         people={companies[key.item].line_size}
                         totalDifference={companies[key.item].totalDifference}
                         countDequeued={companies[key.item].countDequeued}
+                        allData={companies}
                     />
                 )}
                 keyExtractor={key => key}
