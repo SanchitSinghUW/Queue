@@ -4,7 +4,6 @@ import { Image, StyleSheet, Text, View } from 'react-native';
 
 
 export default function Crowdsource(props) {
-    
     let allFields = props.allData[props.company];
     let notInclude = ["countDequeued", "description", "line_size", "positions", "totalDifference"];
     let goodFields = [];

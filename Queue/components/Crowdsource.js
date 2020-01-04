@@ -29,9 +29,6 @@ export default function Crowdsource(props) {
                 body: JSON.stringify(fields),
             })
             .then((response) => response.json())
-            .then((data) => {
-                console.log('Success:', data);
-            })
             .catch((error) => {
                 console.error('Error:', error);
             });

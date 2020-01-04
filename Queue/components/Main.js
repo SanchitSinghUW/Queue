@@ -32,6 +32,14 @@ export default function Main(props) {
             newCompanies[companyName].line_size = line_size;
             newCompanies[companyName].totalDifference = totalDifference;
             newCompanies[companyName].countDequeued = count_dequeued;
+            let notInclude = ["countDequeued", "description", "line_size", "positions", "totalDifference"];
+            Object.keys(data).forEach((key) => {
+                if(key !== "company_name"){
+                    if(!notInclude.includes(key)){
+                        newCompanies[companyName][key] = data[key].S;
+                    }
+                }
+            });
             setCompanies(newCompanies);
             setKeys(Object.keys(newCompanies).sort());
         }
