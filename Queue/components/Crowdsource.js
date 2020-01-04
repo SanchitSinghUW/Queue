@@ -1,6 +1,6 @@
 import React from 'react';
 import { StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native';
-
+import * as APIs from '../APIkeys';
 
 export default function Crowdsource(props) {
     //THIS CODE IS HEAVILY COUPLED. WE NEED TO MAKE THIS ROBUST TO AUTOMATICALLY PULL
@@ -21,7 +21,7 @@ export default function Crowdsource(props) {
 
     clickDone = async () => {
         try {
-            fetch('https://5ch9sufu53.execute-api.us-west-2.amazonaws.com/testing/sendposition', {
+            fetch(APIs.CROWD, {
                 method: 'POST', // or 'PUT'
                 headers: {
                 'Content-Type': 'application/json',

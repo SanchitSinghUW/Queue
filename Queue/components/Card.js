@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { StyleSheet, Text, View, Dimensions, TouchableOpacity} from 'react-native';
+import { StyleSheet, Text, View, Dimensions, TouchableOpacity, Image} from 'react-native';
 import Swipeable from 'react-native-swipeable-row';
 import Collapsible from 'react-native-collapsible';
 import BigCard from './BigCard';
@@ -59,7 +59,7 @@ export default function Card(props) {
     const average = () => {
         let value = props.totalDifference / props.countDequeued;
         value = isNaN(value) ? 0 : value;
-        return Math.round(value) + " mins";
+        return Math.round(value);
     }
 
     let cardStyle = [];
@@ -78,20 +78,25 @@ export default function Card(props) {
 
     return (
         <View>
-                <Swipeable style={styles.swipe} 
-                            leftContent={leftContent} 
-                            rightContent={rightContent}
-                            onLeftActionRelease={clickLeave}
-                            onRightActionRelease={clickJoin}>
-                    <TouchableOpacity onPress={clickCard}>
-                        <View style={cardStyle}>
-                            <Text style={styles.font}>{props.name}</Text>
+            <Swipeable style={styles.swipe} 
+                        leftContent={leftContent} 
+                        rightContent={rightContent}
+                        onLeftActionRelease={clickLeave}
+                        onRightActionRelease={clickJoin}>
+                <TouchableOpacity onPress={clickCard}>
+                    <View style={cardStyle}>
+                        <Text style={styles.font}>{props.name}</Text>
+                        <View style={styles.people}>
+                            <Image source={require('../icons/clock.png')} style={styles.image}/>
                             <Text style={styles.font}>{average()}</Text>
-                            <Text style={styles.font}>{props.people + " people"}</Text>
-                            <Text></Text>
                         </View>
-                    </TouchableOpacity> 
-                </Swipeable>
+                        <View style={styles.people}>
+                            <Image source={require('../icons/user.png')} style={styles.image}/>
+                            <Text style={styles.font}>{props.people}</Text>
+                        </View>
+                    </View>
+                </TouchableOpacity> 
+            </Swipeable>
             <Collapsible collapsed={notVisible}>
                 <BigCard 
                     allData={props.allData}
@@ -173,5 +178,19 @@ const styles = StyleSheet.create({
     },
     contentColor: {
         color: 'white'
+    },
+    image: {
+        height: 20,
+        width: 20,
+        margin: 4,
+    },
+    people: {
+        width: "25%",
+        height: 70,
+        textAlign: "center",
+        display: "flex",
+        flexDirection: "row-reverse",
+        justifyContent: "center",
+        alignItems: "center"
     }
 });

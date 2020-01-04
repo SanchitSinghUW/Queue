@@ -48,7 +48,9 @@ const styles = StyleSheet.create({
         alignContent: "flex-start",
         marginLeft: 5,
         marginRight: 4.6,
-        padding: 10
+        padding: 10,
+        borderBottomLeftRadius: 10,
+        borderBottomRightRadius: 10
     },
     font: {
         color: 'white',

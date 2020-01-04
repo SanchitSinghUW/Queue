@@ -4,6 +4,7 @@ import Modal from 'react-native-modal';
 import Card from './Card';
 import Crowdsource from './Crowdsource';
 import Authorization from './Authorization';
+import * as APIs from '../APIkeys'
 
 export default function Main(props) {
 
@@ -47,7 +48,7 @@ export default function Main(props) {
 
     let getCompanies = async () => {
         try {
-            let response = await fetch("https://5ch9sufu53.execute-api.us-west-2.amazonaws.com/testing/getcompanies");
+            let response = await fetch(APIs.GET_ALL_DATA);
             if(!response.ok) {
                 console.log(response);
             }
@@ -65,7 +66,7 @@ export default function Main(props) {
 
     let authenticateData = async (password) => {
         try {
-            let url = "https://5ch9sufu53.execute-api.us-west-2.amazonaws.com/testing/authenticate?code=";
+            let url = APIs.AUTH;
             url += password; 
             let response = await fetch(url);
             if(!response.ok) {
