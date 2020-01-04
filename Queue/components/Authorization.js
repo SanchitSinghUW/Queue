@@ -17,6 +17,7 @@ export default function Authorization(props) {
             <Text style={styles.font}>Join a Career Fair</Text>
             <TextInput placeholder="Enter Fair ID" value={code} onChangeText={changeCode} 
                 style={[styles.font, styles.input]} keyboardType={'numeric'}/>
+            {props.incorrect && <Text style={styles.error}>Please Try Again</Text>}
             <TouchableOpacity onPress={authenticateData} style={styles.button}>
                 <Text style={[styles.font, styles.buttonFont]}>Join</Text>
             </TouchableOpacity>
@@ -26,6 +27,10 @@ export default function Authorization(props) {
 const styles = StyleSheet.create({
     font: {
         color: "white",
+        fontSize: 25
+    },
+    error: {
+        color: "orange",
         fontSize: 25
     },
     form: {

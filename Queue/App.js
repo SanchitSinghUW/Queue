@@ -8,18 +8,23 @@
 
 
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View, Image } from 'react-native';
 import Main from './components/Main';
 import * as APIs from './APIkeys';
 
 export default function App() {
   const [socket, setSocket] = React.useState(new WebSocket(APIs.WEB_SOCKET));
-
+  const [disconnected, setDisconnected] = React.useState(false);
   let connect = () => {
     console.log("connected to " + socket.readyState);
 
     socket.onopen = () => {
       console.log("opened " + socket);
+      setDisconnected(false);
+    }
+
+    socket.onclose = () => {
+      setDisconnected(true);
     }
   };
   
@@ -37,7 +42,13 @@ export default function App() {
 
   return (
     <View style={styles.container}>
-      <Main socket={socket}/>
+      {disconnected ? 
+        <View style={{display: "flex", justifyContent: "center", alignItems: "center"}}>
+          <Text style={{color: 'white', fontSize: 70}}>Server Down</Text>
+          <Image source={require('./icons/loading.gif')} style={styles.image}/>
+          <Text style={{color: 'white', fontSize: 70}}>Try Again</Text>
+        </View> :
+         <Main socket={socket}/>}
     </View>
   );
 }
@@ -51,4 +62,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     height: "95%"
   },
+  image: {
+
+  }
 });

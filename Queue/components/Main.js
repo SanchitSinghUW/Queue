@@ -20,6 +20,7 @@ export default function Main(props) {
     const [notAuthorized, setAuthorize] = React.useState(true);
     const [search, setSearch] = React.useState("");
     const [keys, setKeys] = React.useState([]);
+    const [incorrect, setIncorrect] = React.useState(false);
 
     //only updates a single card that was given from the server
     let receiveMessage = () => {
@@ -50,7 +51,6 @@ export default function Main(props) {
         try {
             let response = await fetch(APIs.GET_ALL_DATA);
             if(!response.ok) {
-                console.log(response);
             }
             let data = await response.json();
             setCompanies(data);
@@ -68,13 +68,17 @@ export default function Main(props) {
         try {
             let url = APIs.AUTH;
             url += password; 
+            console.log(url);
             let response = await fetch(url);
             if(!response.ok) {
-                console.log(response);
             }
             let data = await response.json();
+            console.log(data);
             if(data === "passed"){
+                setIncorrect(false);
                 setAuthorize(false);
+            }else{
+                setIncorrect(true);
             }
         } catch(e) {
             console.log(e);
@@ -98,7 +102,7 @@ export default function Main(props) {
                 isVisible={notAuthorized}
                 backdropOpacity={0.9}
             >
-                <Authorization authenticateData={authenticateData}/>
+                <Authorization incorrect={incorrect} authenticateData={authenticateData}/>
             </Modal>
             <TextInput 
                     style={styles.search} 
