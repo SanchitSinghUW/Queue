@@ -25,7 +25,6 @@ main {
   margin: 10px;
   border-radius: 15px;
   border: 2px solid #b6e3ff;
-  opacity: 87%;
   box-shadow: 0 2px 1px 0 #B0C4DE;
   transition: 0.3s;
   background-color: #1B1D1E;
@@ -57,8 +56,7 @@ main {
   height: 70px;
   font-size: 30px;
   font-weight: bold;
-  color: #82b1ff;
-  opacity: 87%;
+  color: #7CB8EC;
   padding-left: 28px;
 
   display: flex;
@@ -90,7 +88,7 @@ main {
   font-size: 26px;
   height: 40px;
   width: 50px;
-  color: #82b1ff;
+  color: #7CB8EC;
   opacity: 87%;
 
   display: flex;
@@ -100,7 +98,7 @@ main {
 
 .material-icons.md-36 {
   font-size: 40px;
-  color: #82b1ff;
+  color: #7CB8EC;
   opacity: 87%;
 
   display: flex;
@@ -146,8 +144,7 @@ main {
   font-family: 'Open Sans', sans-serif;
   font-weight: 500;
   font-size: 20px;
-  color: #82b1ff;
-  opacity: 70%;
+  color: #A8BFD3;
 
   display: flex;
   align-items: center;
@@ -158,8 +155,7 @@ main {
   height: 200px;
   width: 470px;
   font-family: 'Open Sans', sans-serif;
-  color: #82b1ff;
-  opacity: 70%;
+  color: #A8BFD3;
   padding-top: 10px;
   padding-left: 8px;
 
