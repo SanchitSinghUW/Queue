@@ -85,14 +85,16 @@ export default function Card(props) {
                         onRightActionRelease={clickJoin}>
                 <TouchableOpacity onPress={clickCard}>
                     <View style={cardStyle}>
-                        <Text style={styles.font}>{props.name}</Text>
-                        <View style={styles.people}>
-                            <Image source={require('../icons/clock.png')} style={styles.image}/>
-                            <Text style={styles.font}>{average()}</Text>
-                        </View>
-                        <View style={styles.people}>
-                            <Image source={require('../icons/user.png')} style={styles.image}/>
-                            <Text style={styles.font}>{props.people}</Text>
+                        <Text style={styles.company}>{props.name}</Text>
+                        <View style={styles.spaceRight}>
+                            <View style={styles.people}>
+                                <Image source={require('../icons/clock.png')} style={styles.image}/>
+                                <Text style={styles.font}>{average()}</Text>
+                            </View>
+                            <View style={styles.people}>
+                                <Image source={require('../icons/user.png')} style={styles.image}/>
+                                <Text style={styles.font}>{props.people}</Text>
+                            </View>
                         </View>
                     </View>
                 </TouchableOpacity> 
@@ -136,6 +138,14 @@ const styles = StyleSheet.create({
     selectedCardColor: {
         backgroundColor: 'green',
 
+    },
+    company: {
+        color: 'white',
+        fontSize: 20,
+        display: 'flex',
+        justifyContent: 'flex-start',
+        marginLeft: 20,
+        flex: 2
     },
     font: {
         color: 'white',
@@ -192,5 +202,11 @@ const styles = StyleSheet.create({
         flexDirection: "row-reverse",
         justifyContent: "center",
         alignItems: "center"
+    },
+    spaceRight: {
+        display: 'flex',
+        justifyContent: 'space-around',
+        alignItems: 'center',
+        flexDirection: 'row-reverse'
     }
 });
