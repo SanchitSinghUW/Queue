@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { Image, StyleSheet, Text, View } from 'react-native';
 
@@ -29,7 +30,7 @@ export default function Crowdsource(props) {
 
     return (
         <View style={styles.container}>
-                {renderOptions()}
+                    {renderOptions()}
                 <View style={styles.description}>
                     <Text style={styles.font}>{allFields.description}</Text>
                 </View>
@@ -39,8 +40,7 @@ export default function Crowdsource(props) {
 
 const styles = StyleSheet.create({
     container: {
-        backgroundColor: '#181818',
-        borderColor: '#181818',
+        backgroundColor: '#0d1a26',
         display: "flex",
         flexWrap: "wrap",
         flexDirection: "row",
@@ -60,24 +60,19 @@ const styles = StyleSheet.create({
         display: "flex",
         flexDirection: "row",
         alignItems: "center",
-        justifyContent: "space-around"
+        justifyContent: "space-between",
+        width: '40%',
+        paddingLeft: '4%',
+        paddingRight: '4%'
     },
     image: {
         height: 20,
         width: 20,
         margin: 4
     },
-    wrapper: {
-        width: "100%",
-        height: "100%",
-        display: "flex",
-        flexWrap: "wrap",
-        flexDirection: "row",
-        justifyContent: "center",
-        alignItems: "center",
-    },
     description: {
         width: "100%",
-        alignItems: "center"
+        alignItems: "center",
+        marginTop: 30
     }
 });

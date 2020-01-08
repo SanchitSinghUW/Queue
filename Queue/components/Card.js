@@ -3,7 +3,10 @@ import { StyleSheet, Text, View, Dimensions, TouchableOpacity, Image} from 'reac
 import Swipeable from 'react-native-swipeable-row';
 import Collapsible from 'react-native-collapsible';
 import BigCard from './BigCard';
+import * as Font from 'expo-font';
 const screenHeight = Dimensions.get('window').height;
+const screenWidth = Dimensions.get('window').width;
+const cardCompany = screenWidth / 15;
 const cardHeight = screenHeight / 10;
 
 export default function Card(props) {
@@ -17,6 +20,16 @@ export default function Card(props) {
         <View style={styles.right}>
             <Text style={styles.rightFont}>JOIN</Text>
         </View>;
+
+    let fontLoader = async () => {
+        Font.loadAsync({
+            'open-sans-bold': require('../assets/fonts/OpenSans-Bold.ttf'),
+        });
+    }
+
+    React.useEffect(() => {
+        fontLoader();
+    }, []);
 
     clickJoin = () => {
         //backend relies on there to be a 0 or a 1 prepended. 1 means enque.
@@ -118,7 +131,7 @@ const styles = StyleSheet.create({
         flexDirection: "row",
         justifyContent: "space-around",
         alignItems: "center",
-        borderRadius: 10,
+        borderRadius: 10
     },
     containerClicked: {
         width: "100%",
@@ -132,7 +145,7 @@ const styles = StyleSheet.create({
         borderTopRightRadius: 10
     },
     defaultCardColor: {
-        backgroundColor: '#181818',
+        backgroundColor: '#0d1a26',
 
     },
     selectedCardColor: {
@@ -144,7 +157,7 @@ const styles = StyleSheet.create({
         fontSize: 20,
         display: 'flex',
         justifyContent: 'flex-start',
-        marginLeft: 20,
+        marginLeft: cardCompany,
         flex: 2
     },
     font: {
