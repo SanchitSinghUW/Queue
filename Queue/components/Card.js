@@ -11,6 +11,7 @@ const cardHeight = screenHeight / 10;
 
 export default function Card(props) {
     const [notVisible, setVisible] = React.useState(true);
+    const [font, setFont] = React.useState(false);
 
     const leftContent = 
         <View style={styles.left}>
@@ -22,9 +23,10 @@ export default function Card(props) {
         </View>;
 
     let fontLoader = async () => {
-        Font.loadAsync({
+        await Font.loadAsync({
             'open-sans-bold': require('../assets/fonts/OpenSans-Bold.ttf'),
         });
+        setFont(true);
     }
 
     React.useEffect(() => {
@@ -98,7 +100,9 @@ export default function Card(props) {
                         onRightActionRelease={clickJoin}>
                 <TouchableOpacity onPress={clickCard}>
                     <View style={cardStyle}>
-                        <Text style={styles.company}>{props.name}</Text>
+                        {font ? 
+                            <Text style={[styles.company, {fontFamily: 'open-sans-bold'}]}>{props.name}</Text> :
+                            <Text style={styles.company}>{props.name}</Text>} 
                         <View style={styles.spaceRight}>
                             <View style={styles.people}>
                                 <Image source={require('../icons/clock.png')} style={styles.image}/>
@@ -131,7 +135,9 @@ const styles = StyleSheet.create({
         flexDirection: "row",
         justifyContent: "space-around",
         alignItems: "center",
-        borderRadius: 10
+        borderRadius: 10,
+        borderWidth: 1.5,
+        borderColor: '#181818'
     },
     containerClicked: {
         width: "100%",
@@ -145,16 +151,16 @@ const styles = StyleSheet.create({
         borderTopRightRadius: 10
     },
     defaultCardColor: {
-        backgroundColor: '#0d1a26',
+        backgroundColor: 'black',
 
     },
     selectedCardColor: {
-        backgroundColor: 'green',
+        backgroundColor: '#309986',
 
     },
     company: {
         color: 'white',
-        fontSize: 20,
+        fontSize: 18,
         display: 'flex',
         justifyContent: 'flex-start',
         marginLeft: cardCompany,

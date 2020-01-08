@@ -48,7 +48,7 @@ export default function App() {
           <Image source={require('./icons/loading.gif')} style={styles.image}/>
           <Text style={{color: 'white', fontSize: 70}}>Try Again</Text>
         </View> :
-         <Main socket={socket}/>}
+        <Main socket={socket}/>}
     </View>
   );
 }

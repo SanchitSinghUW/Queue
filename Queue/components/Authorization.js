@@ -48,13 +48,13 @@ const styles = StyleSheet.create({
         backgroundColor: "#181818"
     },
     button: {
-        backgroundColor: 'green',
+        backgroundColor: '#309986',
         borderRadius: 5,
         borderWidth: 2,
         borderStyle: "solid",
         color: 'white',
         width: "30%",
-        height: "20%",
+        height: "15%",
         padding: 4,
         fontWeight: "bold",
         margin: 3,

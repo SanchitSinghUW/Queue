@@ -158,6 +158,7 @@ const styles = StyleSheet.create({
         color: 'white',
         fontSize: 36,
         margin: 5,
+        marginLeft: 20,
         fontWeight: "bold"
     }
 });

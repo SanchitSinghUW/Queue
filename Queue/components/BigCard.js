@@ -71,8 +71,10 @@ const styles = StyleSheet.create({
         margin: 4
     },
     description: {
-        width: "100%",
-        alignItems: "center",
-        marginTop: 30
+        width: "90%",
+        textAlign: 'center',
+        marginTop: 30,
+        marginLeft: '4%',
+        marginBottom: 30
     }
 });

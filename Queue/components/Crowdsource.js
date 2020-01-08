@@ -107,7 +107,7 @@ const styles = StyleSheet.create({
         justifyContent: "space-between",
     },
     bigButton: {
-        backgroundColor: 'green',
+        backgroundColor: '#309986',
         borderRadius: 5,
         borderWidth: 2,
         borderStyle: "solid",
