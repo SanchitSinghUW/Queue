@@ -40,7 +40,7 @@ export default function Crowdsource(props) {
 
 const styles = StyleSheet.create({
     container: {
-        backgroundColor: '#0d1a26',
+        backgroundColor: 'black',
         display: "flex",
         flexWrap: "wrap",
         flexDirection: "row",
@@ -50,7 +50,10 @@ const styles = StyleSheet.create({
         marginRight: 4.6,
         padding: 10,
         borderBottomLeftRadius: 10,
-        borderBottomRightRadius: 10
+        borderBottomRightRadius: 10,
+        borderWidth: 1.5,
+        borderColor: '#363636',
+        borderTopWidth: 0
     },
     font: {
         color: 'white',

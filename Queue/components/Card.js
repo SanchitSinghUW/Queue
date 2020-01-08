@@ -137,7 +137,7 @@ const styles = StyleSheet.create({
         alignItems: "center",
         borderRadius: 10,
         borderWidth: 1.5,
-        borderColor: '#181818'
+        borderColor: '#363636'
     },
     containerClicked: {
         width: "100%",
@@ -148,7 +148,10 @@ const styles = StyleSheet.create({
         justifyContent: "space-around",
         alignItems: "center",
         borderTopLeftRadius: 10,
-        borderTopRightRadius: 10
+        borderTopRightRadius: 10,
+        borderWidth: 1.5,
+        borderColor: '#363636',
+        borderBottomWidth: 0
     },
     defaultCardColor: {
         backgroundColor: 'black',
