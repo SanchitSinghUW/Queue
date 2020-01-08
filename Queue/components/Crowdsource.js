@@ -43,22 +43,22 @@ export default function Crowdsource(props) {
         return (
             Object.keys(fields).map((key) => {
                 if(key !== "company"){
-                return <View style={styles.container}
-                                key={key}>
-                            <Text style={styles.colour}>{key}</Text>
-                            <View style={styles.buttons}>
-                                <TouchableOpacity onPress={() => {
-                                    fields[key] = "true";
-                                    }}>
-                                    <Image source={require('../icons/success.png')} style={styles.image}/>
-                                </TouchableOpacity>
-                                <TouchableOpacity onPress={() => {
-                                    fields[key] = "false";
-                                    }}>
-                                    <Image source={require('../icons/error.png')} style={styles.image}/>
-                                </TouchableOpacity>
-                            </View>
+                    return <View style={styles.container}
+                            key={key}>
+                        <Text style={styles.colour}>{key}</Text>
+                        <View style={styles.buttons}>
+                            <TouchableOpacity onPress={() => {
+                                fields[key] = "true";
+                                }}>
+                                <Image source={require('../icons/success.png')} style={styles.image}/>
+                            </TouchableOpacity>
+                            <TouchableOpacity onPress={() => {
+                                fields[key] = "false";
+                                }}>
+                                <Image source={require('../icons/error.png')} style={styles.image}/>
+                            </TouchableOpacity>
                         </View>
+                    </View>
                 }
             })
         );
@@ -66,6 +66,7 @@ export default function Crowdsource(props) {
 
     return (
         <View style={styles.overall}>
+            <Text style={styles.text}>Optional Submission</Text>
             {renderFieldButtons()}
             <TouchableOpacity onPress={clickDone} style={styles.bigButton}>
                 <Text style={styles.bigButtonFont}>Submit</Text>
@@ -75,6 +76,14 @@ export default function Crowdsource(props) {
 }
 
 const styles = StyleSheet.create({
+    text: {
+        color: 'white',
+        fontSize: 24,
+        display: 'flex',
+        justifyContent: 'center',
+        flex: 2,
+        marginTop: '10%'
+    },
     colour: {
         color: "white",
         margin: 2,
@@ -105,6 +114,7 @@ const styles = StyleSheet.create({
         display: "flex",
         flexDirection: "row",
         justifyContent: "space-between",
+        width: '22%'
     },
     bigButton: {
         backgroundColor: '#309986',
@@ -112,14 +122,16 @@ const styles = StyleSheet.create({
         borderWidth: 2,
         borderStyle: "solid",
         color: 'white',
-        width: "30%",
-        height: "15%",
+        width: "35%",
+        height: "16%",
         padding: 4,
         fontWeight: "bold",
         margin: 3,
         display: "flex",
         alignItems: "center",
-        justifyContent: "center"
+        justifyContent: "center",
+        marginBottom: '5%',
+        marginTop: '8%'
     },
     bigButtonFont: {
         fontWeight: "900",
