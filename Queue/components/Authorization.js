@@ -60,7 +60,7 @@ const styles = StyleSheet.create({
         margin: 3,
         display: "flex",
         alignItems: "center",
-        justifyContent: "center"
+        justifyContent: "center",
     },
     buttonFont: {
         fontWeight: "900"
@@ -68,7 +68,6 @@ const styles = StyleSheet.create({
     input: {
         width: "60%",
         height: "20%",
-
         borderRadius: 5,
         borderWidth: 2,
         borderStyle: "solid",

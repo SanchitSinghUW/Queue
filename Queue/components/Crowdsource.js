@@ -3,10 +3,6 @@ import { StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native';
 import * as APIs from '../APIkeys';
 
 export default function Crowdsource(props) {
-    //THIS CODE IS HEAVILY COUPLED. WE NEED TO MAKE THIS ROBUST TO AUTOMATICALLY PULL
-    //FROM THE DB. SAME FOR BIG CARD. WE CANNOT HARD CODE LIKE THIS.
-    //ALSO, MAKE IT POSSIBLE TO SELECT AND DESELECT TO SHOW WHAT IS HIGHLIGHTED!
-
     let allFields = props.allData[props.company];
     //these are all the descriptive fields, we only care about crowdsource fields for this one
     let notInclude = ["countDequeued", "description", "line_size", "positions", "totalDifference"];
@@ -19,6 +15,8 @@ export default function Crowdsource(props) {
         }
     });
 
+    const [myFields, setFields] = React.useState(fields);
+
     clickDone = async () => {
         try {
             fetch(APIs.CROWD, {
@@ -26,7 +24,7 @@ export default function Crowdsource(props) {
                 headers: {
                 'Content-Type': 'application/json',
                 },
-                body: JSON.stringify(fields),
+                body: JSON.stringify(myFields),
             })
             .then((response) => response.json())
             .catch((error) => {
@@ -41,21 +39,33 @@ export default function Crowdsource(props) {
 
     let renderFieldButtons = () => {
         return (
-            Object.keys(fields).map((key) => {
+            Object.keys(myFields).map((key) => {
                 if(key !== "company"){
                     return <View style={styles.container}
                             key={key}>
-                        <Text style={styles.colour}>{key}</Text>
+                        <Text style={[styles.colour, styles.question]}>{key}</Text>
                         <View style={styles.buttons}>
-                            <TouchableOpacity onPress={() => {
-                                fields[key] = "true";
+                            <TouchableOpacity style={(myFields[key] === "june") || myFields[key] !== "true" ? styles.yes : [styles.yes, styles.selectedYes]} onPress={() => {
+                                let fieldCopy = {...myFields};
+                                if(fieldCopy[key] === "june"){
+                                    fieldCopy[key] = "true"
+                                }else{
+                                    fieldCopy[key] = "june"
+                                }
+                                setFields(fieldCopy);
                                 }}>
-                                <Image source={require('../icons/success.png')} style={styles.image}/>
+                                <Text style={styles.yesNoText}>Yes</Text>
                             </TouchableOpacity>
-                            <TouchableOpacity onPress={() => {
-                                fields[key] = "false";
+                            <TouchableOpacity style={(myFields[key] === "june") || myFields[key] !== "false" ? styles.no : [styles.no, styles.selectedNo]} onPress={() => {
+                                let fieldCopy = {...myFields};
+                                if(fieldCopy[key] === "june"){
+                                    fieldCopy[key] = "false"
+                                }else{
+                                    fieldCopy[key] = "june"
+                                }
+                                setFields(fieldCopy);
                                 }}>
-                                <Image source={require('../icons/error.png')} style={styles.image}/>
+                                <Text style={styles.yesNoText}>No</Text>
                             </TouchableOpacity>
                         </View>
                     </View>
@@ -66,7 +76,8 @@ export default function Crowdsource(props) {
 
     return (
         <View style={styles.overall}>
-            <Text style={styles.text}>Optional Submission</Text>
+            <Text style={styles.text}>Crowdsource Submission</Text>
+            <Text style={styles.instruction}>Please only select what you know for this company.</Text>
             {renderFieldButtons()}
             <TouchableOpacity onPress={clickDone} style={styles.bigButton}>
                 <Text style={styles.bigButtonFont}>Submit</Text>
@@ -81,8 +92,8 @@ const styles = StyleSheet.create({
         fontSize: 24,
         display: 'flex',
         justifyContent: 'center',
-        flex: 2,
-        marginTop: '10%'
+        alignItems: 'center',
+        marginTop: '5%'
     },
     colour: {
         color: "white",
@@ -94,8 +105,7 @@ const styles = StyleSheet.create({
         display: "flex",
         flexDirection: "row",
         alignItems: "center",
-        justifyContent: "space-between",
-        width: "100%",
+        width: "90%",
         padding: 5,
         paddingLeft: 10,
         paddingRight: 10
@@ -113,17 +123,17 @@ const styles = StyleSheet.create({
     buttons: {
         display: "flex",
         flexDirection: "row",
-        justifyContent: "space-between",
-        width: '22%'
+        width: '22%',
+        flex: 1
     },
     bigButton: {
         backgroundColor: '#309986',
-        borderRadius: 5,
+        borderRadius: 8,
         borderWidth: 2,
         borderStyle: "solid",
         color: 'white',
         width: "35%",
-        height: "16%",
+        height: "13%",
         padding: 4,
         fontWeight: "bold",
         margin: 3,
@@ -139,8 +149,47 @@ const styles = StyleSheet.create({
         fontSize: 25
     },
     image: {
-        height: 20,
-        width: 20,
+        height: 30,
+        width: 30,
         margin: 4
+    },
+    question: {
+        fontSize: 20,
+        flex: 1
+    },
+    instruction:{
+        color: 'orange'
+    },
+    yes: {
+        backgroundColor: '#3ab09b',
+        display: "flex",
+        alignItems: "center",
+        width: "40%",
+        padding: "5%",
+        paddingLeft: "8%",
+        paddingRight: "8%",
+        borderRadius: 5,
+        marginLeft: "15%"
+    }, 
+    no: {
+        backgroundColor: '#CF6679',
+        display: "flex",
+        alignItems: "center",
+        width: "40%",
+        padding: "5%",
+        paddingLeft: "8%",
+        paddingRight: "8%",
+        borderRadius: 5,
+        marginLeft: "8%"
+    },
+    yesNoText: {
+        color: 'white',
+        fontSize: 18
+    },
+    selectedYes: {
+        backgroundColor: "rgba(58, 176, 155, 0.2)"
+    },
+    selectedNo: {
+        backgroundColor: "rgba(207, 102, 121, 0.2)"
     }
 });
