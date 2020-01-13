@@ -1,7 +1,7 @@
-//1/12/2019 - reverting to old stuff 
+//1/12/2019 - reverting to old
 
 import React from 'react';
-import { StyleSheet, Text, View, TextInput, FlatList, AsyncStorage, TouchableOpacity} from 'react-native';
+import { StyleSheet, Text, View, TextInput, FlatList, Button } from 'react-native';
 import Modal from 'react-native-modal';
 import Card from './Card';
 import Crowdsource from './Crowdsource';
@@ -23,29 +23,30 @@ export default function Main(props) {
     const [search, setSearch] = React.useState("");
     const [keys, setKeys] = React.useState([]);
     const [incorrect, setIncorrect] = React.useState(false);
-    const [tutorial, setTutorial] = React.useState(false);
 
     //only updates a single card that was given from the server
-    props.socket.onmessage = (event) => {
-        let data = JSON.parse(event.data);
-        let companyName = data.company_name.S;
-        let line_size = parseInt(data.line_size.N);
-        let totalDifference = data.totalDifference === undefined ? 0 : parseInt(data.totalDifference.N);
-        let count_dequeued = data.countDequeued === undefined ? 1 : parseInt(data.countDequeued.N);
-        let newCompanies = {...companies};
-        newCompanies[companyName].line_size = line_size;
-        newCompanies[companyName].totalDifference = totalDifference;
-        newCompanies[companyName].countDequeued = count_dequeued;
-        let notInclude = ["countDequeued", "description", "line_size", "positions", "totalDifference"];
-        Object.keys(data).forEach((key) => {
-            if(key !== "company_name"){
-                if(!notInclude.includes(key)){
-                    newCompanies[companyName][key] = data[key].S;
+    let receiveMessage = () => {
+        props.socket.onmessage = (event) => {
+            let data = JSON.parse(event.data);
+            let companyName = data.company_name.S;
+            let line_size = parseInt(data.line_size.N);
+            let totalDifference = data.totalDifference === undefined ? 0 : parseInt(data.totalDifference.N);
+            let count_dequeued = data.countDequeued === undefined ? 1 : parseInt(data.countDequeued.N);
+            let newCompanies = {...companies};
+            newCompanies[companyName].line_size = line_size;
+            newCompanies[companyName].totalDifference = totalDifference;
+            newCompanies[companyName].countDequeued = count_dequeued;
+            let notInclude = ["countDequeued", "description", "line_size", "positions", "totalDifference"];
+            Object.keys(data).forEach((key) => {
+                if(key !== "company_name"){
+                    if(!notInclude.includes(key)){
+                        newCompanies[companyName][key] = data[key].S;
+                    }
                 }
-            }
-        });
-        setCompanies(newCompanies);
-        setKeys(Object.keys(newCompanies).sort());
+            });
+            setCompanies(newCompanies);
+            setKeys(Object.keys(newCompanies).sort());
+        }
     }
 
     let getCompanies = async () => {
@@ -61,27 +62,9 @@ export default function Main(props) {
         }
     }
 
-    let initTutorial = async () => {
-        try {
-            let tutorialStatus = await AsyncStorage.getItem('tutorial');
-            //first time
-            if (tutorialStatus === null) {
-                await AsyncStorage.setItem('tutorial', true);
-                setTutorial(true);
-            } else if (tutorialStatus) { //true, means maybe user didn't get through and closed app
-                setTutorial(true);
-            } else {
-                setTutorial(false);
-            }
-        } catch (error) {
-            console.log(error);
-        }
-    }
-
     React.useEffect(() => {
-        initTutorial();
         getCompanies();
-    });
+    }, [receiveMessage()]);
 
     let authenticateData = async (password) => {
         try {
@@ -115,21 +98,8 @@ export default function Main(props) {
         setKeys(tempKeys.sort());
     }
 
-    let disableTutorial = async () => {
-        await AsyncStorage.setItem('tutorial', false);
-        setTutorial(false);
-    }
-
-    let showTutorial = () => {
-        return tutorial &&
-        <View>
-        </View>
-        
-    }
-
     return (
         <View style={styles.container}>
-            {/*showTutorial()*/}
             <Modal
                 isVisible={notAuthorized}
                 backdropOpacity={0.9}
