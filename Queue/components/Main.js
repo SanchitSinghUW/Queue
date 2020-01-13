@@ -62,10 +62,11 @@ export default function Main(props) {
     let initTutorial = async () => {
         try {
             let tutorialStatus = await AsyncStorage.getItem('tutorial');
+            //first time
             if (tutorialStatus === null) {
                 await AsyncStorage.setItem('tutorial', true);
                 setTutorial(true);
-            } else if (tutorialStatus) { //true
+            } else if (tutorialStatus) { //true, means maybe user didn't get through and closed app
                 setTutorial(true);
             } else {
                 setTutorial(false);
@@ -117,7 +118,7 @@ export default function Main(props) {
         setTutorial(false);
     }
 
-    let showTutorial = async () => {
+    let showTutorial = () => {
         return tutorial &&
         <View>
             <TouchableOpacity onPress={disableTutorial}>
