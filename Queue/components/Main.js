@@ -1,3 +1,5 @@
+//1/12/2019 - reverting to old stuff 
+
 import React from 'react';
 import { StyleSheet, Text, View, TextInput, FlatList, Button } from 'react-native';
 import Modal from 'react-native-modal';
