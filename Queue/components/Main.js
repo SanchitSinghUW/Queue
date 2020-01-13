@@ -121,16 +121,13 @@ export default function Main(props) {
     let showTutorial = () => {
         return tutorial &&
         <View>
-            <TouchableOpacity onPress={disableTutorial}>
-                <Text>Do not show again</Text>
-            </TouchableOpacity>
         </View>
         
     }
 
     return (
         <View style={styles.container}>
-            {showTutorial()}
+            {/*showTutorial()*/}
             <Modal
                 isVisible={notAuthorized}
                 backdropOpacity={0.9}
