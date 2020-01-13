@@ -129,17 +129,15 @@ const styles = StyleSheet.create({
     bigButton: {
         backgroundColor: '#309986',
         borderRadius: 8,
-        borderWidth: 2,
         borderStyle: "solid",
         color: 'white',
         width: "35%",
         height: "13%",
-        padding: 4,
         fontWeight: "bold",
-        margin: 3,
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
+        paddingTop: '3%',
         marginBottom: '5%',
         marginTop: '8%'
     },

@@ -1,13 +1,10 @@
-//1/12/2019 - reverting to old
-
 import React from 'react';
 import { StyleSheet, Text, View, TextInput, FlatList, Button } from 'react-native';
 import Modal from 'react-native-modal';
 import Card from './Card';
 import Crowdsource from './Crowdsource';
 import Authorization from './Authorization';
-import * as APIs from '../APIkeys';
-import Tutorial from './Tutorial';
+import * as APIs from '../APIkeys'
 
 export default function Main(props) {
 
@@ -99,26 +96,8 @@ export default function Main(props) {
         setKeys(tempKeys.sort());
     }
 
-    let disableTutorial = async () => {
-        await AsyncStorage.setItem('tutorial', false);
-        setTutorial(false);
-    }
-
-    let showTutorial = () => {
-        return tutorial &&
-        <Tutorial />
-
-        // <View>
-        //     <TouchableOpacity onPress={disableTutorial}>
-        //         <Text>Do not show again</Text>
-        //     </TouchableOpacity>
-        // </View>
-        
-    }
-
     return (
         <View style={styles.container}>
-            {/*showTutorial()*/}
             <Modal
                 isVisible={notAuthorized}
                 backdropOpacity={0.9}
