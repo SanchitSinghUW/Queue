@@ -1,6 +1,5 @@
 import React from 'react';
 import { StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native';
-import Swiper from 'react-native-swiper';
 
 export default function Tutorial(props) {
 
@@ -10,18 +9,11 @@ export default function Tutorial(props) {
                         '../icons/82558593_465870304097835_1071093555755220992_n.png'];
 
     let showImages = () => {
-        pictureList.map((key) => {
-            <View style={styles.picture}>
-                <Image source={require(key)} style={styles.image}/>
-            </View>
-        })
+        
     }
 
     return (
         <View>
-            <Swiper style={styles.swipe}>
-                {showImages()}
-            </Swiper>
             <TouchableOpacity><Text>Got it</Text></TouchableOpacity>
         </View>
     );
