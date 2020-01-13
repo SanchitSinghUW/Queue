@@ -1,12 +1,13 @@
 import React from 'react';
 import { StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native';
-import Swiper from 'react-native-swiper'
+import Swiper from 'react-native-swiper';
 
 export default function Tutorial(props) {
 
     let pictureList = ['../icons/82087833_524552221746524_1065347117146439680_n.png',
                         '../icons/82345146_995978140788496_3195880869986304_n.png',
-                        '../icons/82504077_2568140290177299_6148435448764039168_n.png'];
+                        '../icons/82504077_2568140290177299_6148435448764039168_n.png',
+                        '../icons/82558593_465870304097835_1071093555755220992_n.png'];
 
     let showImages = () => {
         pictureList.map((key) => {

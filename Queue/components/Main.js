@@ -4,7 +4,8 @@ import Modal from 'react-native-modal';
 import Card from './Card';
 import Crowdsource from './Crowdsource';
 import Authorization from './Authorization';
-import * as APIs from '../APIkeys'
+import * as APIs from '../APIkeys';
+import Tutorial from './Tutorial';
 
 export default function Main(props) {
 
@@ -120,17 +121,19 @@ export default function Main(props) {
 
     let showTutorial = () => {
         return tutorial &&
-        <View>
-            <TouchableOpacity onPress={disableTutorial}>
-                <Text>Do not show again</Text>
-            </TouchableOpacity>
-        </View>
+        <Tutorial />
+
+        // <View>
+        //     <TouchableOpacity onPress={disableTutorial}>
+        //         <Text>Do not show again</Text>
+        //     </TouchableOpacity>
+        // </View>
         
     }
 
     return (
         <View style={styles.container}>
-            {showTutorial()}
+            {/*showTutorial()*/}
             <Modal
                 isVisible={notAuthorized}
                 backdropOpacity={0.9}
