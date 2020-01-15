@@ -15,7 +15,8 @@ export default function Tutorial(props) {
                         marginLeft: 3, marginRight: 3, marginTop: 3,
                         marginBottom: 3,}} />
     return (
-        <Swiper style={styles.wrapper} dot={dot}>
+        
+        <Swiper style={styles.wrapper} dot={dot} loop={false}>
             <View style={styles.slide}>
                 <Text style={styles.logoText}>welcome to</Text>
                 <Image style={styles.logo} source={require('../icons/logo.png')}/>

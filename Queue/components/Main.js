@@ -1,6 +1,6 @@
 import React from 'react';
-import { StyleSheet, Text, View, TextInput, FlatList, Button } from 'react-native';
-import Modal from 'react-native-modal';
+import { StyleSheet, View, TextInput, FlatList, Modal} from 'react-native';
+import ModalLibrary from 'react-native-modal';
 import Card from './Card';
 import Crowdsource from './Crowdsource';
 import Authorization from './Authorization';
@@ -22,7 +22,7 @@ export default function Main(props) {
     const [search, setSearch] = React.useState("");
     const [keys, setKeys] = React.useState([]);
     const [incorrect, setIncorrect] = React.useState(false);
-    const [tutorial, setTutorial] = React.useState(true);
+    const [tutorial, setTutorial] = React.useState(false);
 
     //only updates a single card that was given from the server
     let receiveMessage = () => {
@@ -64,6 +64,7 @@ export default function Main(props) {
 
     React.useEffect(() => {
         getCompanies();
+        setTutorial(true);
     }, [receiveMessage()]);
 
     let authenticateData = async (password) => {
@@ -79,6 +80,7 @@ export default function Main(props) {
             if(data === "passed"){
                 setIncorrect(false);
                 setAuthorize(false);
+                setTutorial(true);
             }else{
                 setIncorrect(true);
             }
@@ -100,13 +102,15 @@ export default function Main(props) {
 
     return (
         <View style={styles.container}>
-            <Modal
-                isVisible={notAuthorized}
-                backdropOpacity={0.9}
-            >
-                <Authorization incorrect={incorrect} authenticateData={authenticateData}/>
+            <Modal animation="fade" visible={tutorial || notAuthorized}>
+                {notAuthorized && <ModalLibrary
+                    isVisible={notAuthorized}
+                    backdropOpacity={1}
+                >
+                    <Authorization incorrect={incorrect} authenticateData={authenticateData}/>
+                </ModalLibrary>}
+                {tutorial && <Tutorial disableTutorial={() => {setTutorial(false)}}/>}
             </Modal>
-            {tutorial ? <Tutorial disableTutorial={() => {setTutorial(false)}}/> :
             <View>
                 <TextInput 
                         style={styles.search} 
@@ -117,7 +121,7 @@ export default function Main(props) {
                         >
 
                 </TextInput>
-                <Modal
+                <ModalLibrary
                     style={styles.modal}
                     isVisible={popup}
                     backdropOpacity={0.9}
@@ -127,7 +131,7 @@ export default function Main(props) {
                         company={company}
                         allData={companies}
                     />
-                </Modal>
+                </ModalLibrary>
                 <FlatList 
                     data={keys}
                     renderItem={( key ) => (
@@ -149,7 +153,7 @@ export default function Main(props) {
                     )}
                     keyExtractor={key => key}
                 />
-            </View>}
+            </View>
         </View>
     );
 }
@@ -165,5 +169,10 @@ const styles = StyleSheet.create({
         margin: 5,
         marginLeft: 20,
         fontWeight: "bold"
+    },
+    modalBackground: {
+        backgroundColor: 'black',
+        height: "100%",
+        width: "100%",
     }
 });
