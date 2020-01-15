@@ -5,6 +5,7 @@ import Card from './Card';
 import Crowdsource from './Crowdsource';
 import Authorization from './Authorization';
 import * as APIs from '../APIkeys'
+import Tutorial from './Tutorial';
 
 export default function Main(props) {
 
@@ -98,6 +99,7 @@ export default function Main(props) {
 
     return (
         <View style={styles.container}>
+            <Tutorial />
             <Modal
                 isVisible={notAuthorized}
                 backdropOpacity={0.9}
