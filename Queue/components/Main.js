@@ -5,7 +5,7 @@ import Card from './Card';
 import Crowdsource from './Crowdsource';
 import Authorization from './Authorization';
 import * as APIs from '../APIkeys'
-import Tutorial from './Tutorial';
+import Tutorial from './Tutorial'
 
 export default function Main(props) {
 
@@ -22,6 +22,7 @@ export default function Main(props) {
     const [search, setSearch] = React.useState("");
     const [keys, setKeys] = React.useState([]);
     const [incorrect, setIncorrect] = React.useState(false);
+    const [tutorial, setTutorial] = React.useState(true);
 
     //only updates a single card that was given from the server
     let receiveMessage = () => {
@@ -106,47 +107,50 @@ export default function Main(props) {
             >
                 <Authorization incorrect={incorrect} authenticateData={authenticateData}/>
             </Modal>
-            <TextInput 
-                    style={styles.search} 
-                    placeholder="search" 
-                    placeholderTextColor="white" 
-                    value={search}
-                    onChangeText={changeSearch}
-                    >
+            {tutorial ? <Tutorial disableTutorial={() => {setTutorial(false)}}/> :
+            <View>
+                <TextInput 
+                        style={styles.search} 
+                        placeholder="search" 
+                        placeholderTextColor="white" 
+                        value={search}
+                        onChangeText={changeSearch}
+                        >
 
-            </TextInput>
-            <Modal
-                style={styles.modal}
-                isVisible={popup}
-                backdropOpacity={0.9}
-            >
-                <Crowdsource 
-                    setPopup={setPopup}
-                    company={company}
-                    allData={companies}
-                />
-            </Modal>
-            <FlatList 
-                data={keys}
-                renderItem={( key ) => (
-                    <Card 
+                </TextInput>
+                <Modal
+                    style={styles.modal}
+                    isVisible={popup}
+                    backdropOpacity={0.9}
+                >
+                    <Crowdsource 
                         setPopup={setPopup}
-                        setCompany={setCompany}
-                        queued={queued}
-                        setQueued={setQueued}
-                        socket={props.socket}
-                        key={key.item} 
-                        name={key.item} 
-                        positions={companies[key.item].positions} 
-                        description={companies[key.item].description}
-                        people={companies[key.item].line_size}
-                        totalDifference={companies[key.item].totalDifference}
-                        countDequeued={companies[key.item].countDequeued}
+                        company={company}
                         allData={companies}
                     />
-                )}
-                keyExtractor={key => key}
-            />
+                </Modal>
+                <FlatList 
+                    data={keys}
+                    renderItem={( key ) => (
+                        <Card 
+                            setPopup={setPopup}
+                            setCompany={setCompany}
+                            queued={queued}
+                            setQueued={setQueued}
+                            socket={props.socket}
+                            key={key.item} 
+                            name={key.item} 
+                            positions={companies[key.item].positions} 
+                            description={companies[key.item].description}
+                            people={companies[key.item].line_size}
+                            totalDifference={companies[key.item].totalDifference}
+                            countDequeued={companies[key.item].countDequeued}
+                            allData={companies}
+                        />
+                    )}
+                    keyExtractor={key => key}
+                />
+            </View>}
         </View>
     );
 }
