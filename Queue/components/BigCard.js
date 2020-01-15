@@ -43,8 +43,8 @@ export default function Crowdsource(props) {
 const styles = StyleSheet.create({
     container: {
         backgroundColor: 'black',
-        marginLeft: "1.3%",
-        marginRight: "1.1%",
+        marginLeft: 5.3,
+        marginRight: 4.7,
         padding: "3%",
         borderBottomLeftRadius: 10,
         borderBottomRightRadius: 10,

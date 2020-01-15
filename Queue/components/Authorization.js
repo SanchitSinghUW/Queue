@@ -60,9 +60,12 @@ const styles = StyleSheet.create({
         alignItems: "center",
         justifyContent: "center",
         marginTop: "4%",
+        marginBottom: '5%'
     },
     buttonFont: {
-        fontWeight: "900"
+        fontWeight: "900",
+        paddingBottom: '15%',
+        paddingTop: '5%'
     },
     input: {
         width: "60%",

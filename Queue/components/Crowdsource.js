@@ -47,7 +47,7 @@ export default function Crowdsource(props) {
                         <View style={styles.buttons}>
                             <TouchableOpacity style={(myFields[key] === "june") || myFields[key] !== "true" ? styles.yes : [styles.yes, styles.selectedYes]} onPress={() => {
                                 let fieldCopy = {...myFields};
-                                if(fieldCopy[key] === "june"){
+                                if(fieldCopy[key] === "june" || fieldCopy[key] === "false"){
                                     fieldCopy[key] = "true"
                                 }else{
                                     fieldCopy[key] = "june"
@@ -58,7 +58,7 @@ export default function Crowdsource(props) {
                             </TouchableOpacity>
                             <TouchableOpacity style={(myFields[key] === "june") || myFields[key] !== "false" ? styles.no : [styles.no, styles.selectedNo]} onPress={() => {
                                 let fieldCopy = {...myFields};
-                                if(fieldCopy[key] === "june"){
+                                if(fieldCopy[key] === "june" || fieldCopy[key] === "true"){
                                     fieldCopy[key] = "false"
                                 }else{
                                     fieldCopy[key] = "june"
@@ -144,7 +144,8 @@ const styles = StyleSheet.create({
     bigButtonFont: {
         fontWeight: "900",
         color: "white",
-        fontSize: 25
+        fontSize: 25,
+        paddingBottom: '19%'
     },
     image: {
         height: 30,
