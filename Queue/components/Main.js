@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View, TextInput, FlatList, Button } from 'react-native';
+import { StyleSheet, Text, View, TextInput, FlatList, Image, TouchableOpacity } from 'react-native';
 import Modal from 'react-native-modal';
 import Card from './Card';
 import Crowdsource from './Crowdsource';
@@ -100,7 +100,6 @@ export default function Main(props) {
 
     return (
         <View style={styles.container}>
-            <Tutorial />
             <Modal
                 isVisible={notAuthorized}
                 backdropOpacity={0.9}
@@ -109,15 +108,19 @@ export default function Main(props) {
             </Modal>
             {tutorial ? <Tutorial disableTutorial={() => {setTutorial(false)}}/> :
             <View>
-                <TextInput 
-                        style={styles.search} 
-                        placeholder="search" 
-                        placeholderTextColor="white" 
-                        value={search}
-                        onChangeText={changeSearch}
-                        >
-
-                </TextInput>
+                <View style={styles.header}>
+                    <TextInput 
+                            style={styles.search} 
+                            placeholder="search" 
+                            placeholderTextColor="white" 
+                            value={search}
+                            onChangeText={changeSearch}
+                            >
+                    </TextInput>
+                    <TouchableOpacity onPress={() => {setTutorial(true)}}>
+                        <Image source={require('../icons/question.png')} style={styles.image}/> 
+                    </TouchableOpacity>
+                </View>
                 <Modal
                     style={styles.modal}
                     isVisible={popup}
@@ -164,7 +167,20 @@ const styles = StyleSheet.create({
         color: 'white',
         fontSize: 36,
         margin: 5,
-        marginLeft: 20,
-        fontWeight: "bold"
+        marginLeft: 15,
+        fontWeight: "bold",
+        width: '80%'
+    },
+    header: {
+        display: "flex",
+        flexDirection: "row",
+        justifyContent: "space-around",
+        alignItems: "center"
+    },
+    image: {
+        height: 25,
+        width: 25,
+        margin: 4,
+        marginRight: 15
     }
 });

@@ -15,7 +15,7 @@ export default function Authorization(props) {
     return (
         <View style={styles.form}>
             <Text style={styles.font}>Join a Career Fair</Text>
-            <TextInput placeholder="Enter Fair ID" value={code} onChangeText={changeCode} 
+            <TextInput placeholder=" Enter Fair ID" value={code} onChangeText={changeCode} 
                 style={[styles.font, styles.input]} keyboardType={'numeric'}/>
             {props.incorrect && <Text style={styles.error}>Please Try Again</Text>}
             <TouchableOpacity onPress={authenticateData} style={styles.button}>

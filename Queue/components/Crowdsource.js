@@ -159,7 +159,9 @@ const styles = StyleSheet.create({
         color: 'orange'
     },
     yes: {
-        backgroundColor: '#3ab09b',
+        backgroundColor: 'black',
+        borderColor: '#309986',
+        borderWidth: 2,
         display: "flex",
         alignItems: "center",
         width: "40%",
@@ -170,7 +172,9 @@ const styles = StyleSheet.create({
         marginLeft: "15%"
     }, 
     no: {
-        backgroundColor: '#CF6679',
+        backgroundColor: 'black',
+        borderColor: '#CF6679',
+        borderWidth: 2,
         display: "flex",
         alignItems: "center",
         width: "40%",
@@ -182,12 +186,12 @@ const styles = StyleSheet.create({
     },
     yesNoText: {
         color: 'white',
-        fontSize: 18
+        fontSize: 16
     },
     selectedYes: {
-        backgroundColor: "rgba(58, 176, 155, 0.2)"
+        backgroundColor: "rgba(58, 176, 155, 0.4)"
     },
     selectedNo: {
-        backgroundColor: "rgba(207, 102, 121, 0.2)"
+        backgroundColor: "rgba(207, 102, 121, 0.4)"
     }
 });

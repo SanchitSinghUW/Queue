@@ -15,7 +15,7 @@ export default function Tutorial(props) {
                         marginLeft: 3, marginRight: 3, marginTop: 3,
                         marginBottom: 3,}} />
     return (
-        <Swiper style={styles.wrapper} dot={dot}>
+        <Swiper style={styles.wrapper} loop={false} dot={dot}>
             <View style={styles.slide}>
                 <Text style={styles.logoText}>welcome to</Text>
                 <Image style={styles.logo} source={require('../icons/logo.png')}/>
@@ -74,9 +74,17 @@ const styles = StyleSheet.create({
         fontSize: 30,
         fontWeight: 'bold',
     },
-    button:{
-        borderColor: 'green',
-        borderWidth: 3,
-        borderRadius: 10
+    button: {
+        backgroundColor: '#309986',
+        borderRadius: 8,
+        borderWidth: 2,
+        borderStyle: "solid",
+        color: 'white',
+        padding: 15,
+        fontWeight: "bold",
+        margin: 3,
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
     }
 })
