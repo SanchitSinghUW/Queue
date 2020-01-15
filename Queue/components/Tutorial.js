@@ -20,27 +20,47 @@ export default function Tutorial(props) {
                 <Text style={styles.logoText}>welcome to</Text>
                 <Image style={styles.logo} source={require('../icons/logo.png')}/>
                 <Text style={styles.logoText}>let's get started</Text>
+                <View style={styles.bottonBox}>
+                    <TouchableOpacity onPress={props.disableTutorial}>
+                        <Text style={styles.gotit}>Got it</Text>
+                    </TouchableOpacity>
+                </View>
             </View>
             <View style={styles.slide}>
                 <Text style={styles.text}>swipe left on a company to join</Text>
                 <Image style={styles.image} source={require('../icons/82087833_524552221746524_1065347117146439680_n.png')}/>
+                <View style={styles.bottonBox}>
+                    <TouchableOpacity onPress={props.disableTutorial}>
+                        <Text style={styles.gotit}>Got it</Text>
+                    </TouchableOpacity>
+                </View>
             </View>
             <View style={styles.slide}>
                 <Text style={styles.text}>Beautiful</Text>
                 <Image style={styles.image} source={require('../icons/82345146_995978140788496_3195880869986304_n.png')}/>
+                <View style={styles.bottonBox}>
+                    <TouchableOpacity onPress={props.disableTutorial}>
+                        <Text style={styles.gotit}>Got it</Text>
+                    </TouchableOpacity>
+                </View>
             </View>
             <View style={styles.slide}>
                 <Text style={styles.text}>And simple</Text>
                 <Image style={styles.image} source={require('../icons/82504077_2568140290177299_6148435448764039168_n.png')}/>
+                <View style={styles.bottonBox}>
+                    <TouchableOpacity onPress={props.disableTutorial}>
+                        <Text style={styles.gotit}>Got it</Text>
+                    </TouchableOpacity>
+                </View>
             </View>
             <View style={styles.slide}>
                 <Text style={styles.text}>And simple</Text>
                 <Image style={styles.image} source={require('../icons/82558593_465870304097835_1071093555755220992_n.png')}/>
-            </View>
-            <View style={styles.slide}>
-                <TouchableOpacity style={styles.button} onPress={props.disableTutorial}>
-                    <Text style={styles.text}>I'm ready</Text>
-                </TouchableOpacity>
+                <View style={styles.bottonBox}>
+                    <TouchableOpacity onPress={props.disableTutorial}>
+                        <Text style={styles.gotit}>Got it</Text>
+                    </TouchableOpacity>
+                </View>
             </View>
         </Swiper>
     );
@@ -86,5 +106,15 @@ const styles = StyleSheet.create({
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
+    },
+    bottonBox: {
+        display: 'flex',
+        marginLeft: 'auto',
+        margin: 20,
+        marginRight: 20
+    },
+    gotit: {
+        color: '#309986',
+        fontSize: 24,
     }
 })
