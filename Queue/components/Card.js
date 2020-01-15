@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { StyleSheet, Text, View, Dimensions, TouchableOpacity, Image} from 'react-native';
 import Swipeable from 'react-native-swipeable-row';
 import Collapsible from 'react-native-collapsible';
@@ -31,7 +31,7 @@ export default function Card(props) {
 
     React.useEffect(() => {
         fontLoader();
-    }, []);
+    });
 
     clickJoin = () => {
         //backend relies on there to be a 0 or a 1 prepended. 1 means enque.
@@ -174,6 +174,7 @@ const styles = StyleSheet.create({
         fontSize: 20,
     },
     swipe: {
+        //we cannot make these percentages due to library issues
         height: cardHeight,
         marginTop: 10,
         marginLeft: 5,
@@ -181,13 +182,11 @@ const styles = StyleSheet.create({
     },
     left: {
         backgroundColor: 'white',
-        width: "93%",
+        width: "97%",
         height: "100%",
         borderRadius: 10,
-        marginRight: 15,
         display: "flex",
         justifyContent: "center",
-        padding: 5,
         alignItems: "flex-end"
     },
     right: {
@@ -195,18 +194,17 @@ const styles = StyleSheet.create({
         width: "100%",
         height: "100%",
         borderRadius: 10,
-        marginLeft: 25,
+        marginLeft: "3%",
         display: "flex",
         justifyContent: "center",
-        padding: 5
     },
     rightFont: {
         fontSize: 25,
-        marginLeft: 20
+        marginLeft: "5%"
     },
     leftFont: {
         fontSize: 25,
-        marginRight: 20
+        marginRight: "5%"
     },
     contentColor: {
         color: 'white'
@@ -218,7 +216,7 @@ const styles = StyleSheet.create({
     },
     people: {
         width: "25%",
-        height: 70,
+        height: "30%",
         textAlign: "center",
         display: "flex",
         flexDirection: "row-reverse",

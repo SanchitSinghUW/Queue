@@ -1,11 +1,11 @@
 import React from 'react';
 import ModalLibrary from 'react-native-modal';
-import { StyleSheet, View, TextInput, FlatList, Image, TouchableOpacity, Modal } from 'react-native';
+import { StyleSheet, View, TextInput, FlatList, Image, TouchableOpacity, Modal, AsyncStorage } from 'react-native';
 import Card from './Card';
 import Crowdsource from './Crowdsource';
 import Authorization from './Authorization';
-import * as APIs from '../APIkeys'
-import Tutorial from './Tutorial'
+import * as APIs from '../APIkeys';
+import Tutorial from './Tutorial';
 
 export default function Main(props) {
     //this also contains information for crowdsource fields
@@ -59,12 +59,27 @@ export default function Main(props) {
             console.log(e);
         }
     }
-
     
+    let initTutorial = async () => {
+        try {
+            let tutorialStatus = await AsyncStorage.getItem('tutorial');
+            //first time
+            if (tutorialStatus === null) {
+                await AsyncStorage.setItem('tutorial', 'true');
+                setTutorial(true);
+            } else if (tutorialStatus === "true") { //true, means maybe user didn't get through and closed app
+                setTutorial(true);
+            } else {
+                setTutorial(false);
+            }
+        } catch (error) {
+            console.log(error);
+        }
+    }
 
     React.useEffect(() => {
         getCompanies();
-        setTutorial(true);
+        initTutorial();
     }, [receiveMessage()]);
 
     let authenticateData = async (password) => {
@@ -99,6 +114,11 @@ export default function Main(props) {
         setKeys(tempKeys.sort());
     }
 
+    let closeTutorial = async () => {
+        setTutorial(false);
+        await AsyncStorage.setItem('tutorial', 'false');
+    }
+
     return (
         <View style={styles.container}>
             <Modal animationType="slide" visible={tutorial || notAuthorized}>
@@ -109,9 +129,9 @@ export default function Main(props) {
                     <Authorization incorrect={incorrect} authenticateData={authenticateData}/>
                 </ModalLibrary>}
                 {notAuthorized && <View style={styles.screen}></View>}
-                {tutorial && <Tutorial disableTutorial={() => {setTutorial(false)}}/>}
+                {tutorial && <Tutorial disableTutorial={closeTutorial}/>}
             </Modal>
-            {notAuthorized ? <View style={styles.screen}></View> : 
+            {notAuthorized && <View style={styles.screen}></View>}
             <View>
                 <View style={styles.header}>
                     <TextInput 
@@ -158,7 +178,7 @@ export default function Main(props) {
                     )}
                     keyExtractor={key => key}
                 />
-            </View>}
+            </View>
         </View>
     );
 }
@@ -171,8 +191,8 @@ const styles = StyleSheet.create({
     search: {
         color: 'white',
         fontSize: 36,
-        margin: 5,
-        marginLeft: 15,
+        margin: "1%",
+        marginLeft: "3%",
         fontWeight: "bold",
         width: '80%'
     },
@@ -185,8 +205,8 @@ const styles = StyleSheet.create({
     image: {
         height: 25,
         width: 25,
-        margin: 4,
-        marginRight: 15
+        margin: "1%",
+        marginRight: "3%"
     },
     screen: {
         height: '100%',

@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, View, Text, TextInput, TouchableOpacity, ShadowPropTypesIOS } from 'react-native';
+import { StyleSheet, View, Text, TextInput, TouchableOpacity } from 'react-native';
 
 export default function Authorization(props) {
     const [code, setCode] = React.useState("");
@@ -27,7 +27,8 @@ export default function Authorization(props) {
 const styles = StyleSheet.create({
     font: {
         color: "white",
-        fontSize: 25
+        fontSize: 25,
+        fontWeight: "bold",
     },
     error: {
         color: "orange",
@@ -35,15 +36,14 @@ const styles = StyleSheet.create({
     },
     form: {
         width: "100%",
-        height: "40%",
-        padding: 8,
+        height: "35%",
         borderRadius: 15,
         borderWidth: 2,
         borderStyle: "solid",
         fontFamily: 'sans-serif',      
         display: 'flex',
-        justifyContent: "space-around",
         alignItems: "center",
+        justifyContent: "center",
         flexDirection: "column",
         backgroundColor: "#181818"
     },
@@ -54,25 +54,24 @@ const styles = StyleSheet.create({
         borderStyle: "solid",
         color: 'white',
         width: "30%",
-        height: "15%",
-        padding: 4,
+        height: "20%",
         fontWeight: "bold",
-        margin: 3,
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
+        marginTop: "4%",
     },
     buttonFont: {
         fontWeight: "900"
     },
     input: {
         width: "60%",
-        height: "20%",
+        height: "12%",
         borderRadius: 5,
         borderWidth: 2,
         borderStyle: "solid",
         borderColor: "white",
-        padding: 3,
-        margin: 8
+        marginTop: "8%",
+        marginBottom: "4%"
     }
 });
