@@ -1,6 +1,6 @@
 import React from 'react';
-import { StyleSheet, View, TextInput, FlatList, Modal} from 'react-native';
 import ModalLibrary from 'react-native-modal';
+import { StyleSheet, View, TextInput, FlatList, Image, TouchableOpacity, Modal } from 'react-native';
 import Card from './Card';
 import Crowdsource from './Crowdsource';
 import Authorization from './Authorization';
@@ -8,8 +8,6 @@ import * as APIs from '../APIkeys'
 import Tutorial from './Tutorial'
 
 export default function Main(props) {
-
-
     //this also contains information for crowdsource fields
     const [companies, setCompanies] = React.useState({});
     //this is a common state for all cards that resiricts only one company to be queued at a given time
@@ -62,6 +60,8 @@ export default function Main(props) {
         }
     }
 
+    
+
     React.useEffect(() => {
         getCompanies();
         setTutorial(true);
@@ -80,7 +80,6 @@ export default function Main(props) {
             if(data === "passed"){
                 setIncorrect(false);
                 setAuthorize(false);
-                setTutorial(true);
             }else{
                 setIncorrect(true);
             }
@@ -102,25 +101,31 @@ export default function Main(props) {
 
     return (
         <View style={styles.container}>
-            <Modal animation="fade" visible={tutorial || notAuthorized}>
+            <Modal animationType="slide" visible={tutorial || notAuthorized}>
                 {notAuthorized && <ModalLibrary
                     isVisible={notAuthorized}
                     backdropOpacity={1}
                 >
                     <Authorization incorrect={incorrect} authenticateData={authenticateData}/>
                 </ModalLibrary>}
+                {notAuthorized && <View style={styles.screen}></View>}
                 {tutorial && <Tutorial disableTutorial={() => {setTutorial(false)}}/>}
             </Modal>
+            {notAuthorized ? <View style={styles.screen}></View> : 
             <View>
-                <TextInput 
-                        style={styles.search} 
-                        placeholder="search" 
-                        placeholderTextColor="white" 
-                        value={search}
-                        onChangeText={changeSearch}
-                        >
-
-                </TextInput>
+                <View style={styles.header}>
+                    <TextInput 
+                            style={styles.search} 
+                            placeholder="search" 
+                            placeholderTextColor="white" 
+                            value={search}
+                            onChangeText={changeSearch}
+                            >
+                    </TextInput>
+                    <TouchableOpacity onPress={() => {setTutorial(true)}}>
+                        <Image source={require('../icons/question.png')} style={styles.image}/> 
+                    </TouchableOpacity>
+                </View>
                 <ModalLibrary
                     style={styles.modal}
                     isVisible={popup}
@@ -153,7 +158,7 @@ export default function Main(props) {
                     )}
                     keyExtractor={key => key}
                 />
-            </View>
+            </View>}
         </View>
     );
 }
@@ -167,12 +172,25 @@ const styles = StyleSheet.create({
         color: 'white',
         fontSize: 36,
         margin: 5,
-        marginLeft: 20,
-        fontWeight: "bold"
+        marginLeft: 15,
+        fontWeight: "bold",
+        width: '80%'
     },
-    modalBackground: {
-        backgroundColor: 'black',
-        height: "100%",
-        width: "100%",
+    header: {
+        display: "flex",
+        flexDirection: "row",
+        justifyContent: "space-around",
+        alignItems: "center"
+    },
+    image: {
+        height: 25,
+        width: 25,
+        margin: 4,
+        marginRight: 15
+    },
+    screen: {
+        height: '100%',
+        width: '100%',
+        backgroundColor: 'black'
     }
 });

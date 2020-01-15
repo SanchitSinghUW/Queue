@@ -57,14 +57,14 @@ const styles = StyleSheet.create({
     },
     font: {
         color: 'white',
-        fontSize: 15,
+        fontSize: 15
     },
     infoAspect: {
         display: "flex",
         flexDirection: "row",
         alignItems: "center",
         justifyContent: "space-between",
-        width: '40%',
+        width: '45%',
         paddingLeft: '4%',
         paddingRight: '4%'
     },
