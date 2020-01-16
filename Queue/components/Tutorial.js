@@ -30,9 +30,11 @@ export default function Tutorial(props) {
                 <Image style={styles.picture} source={require('../icons/info.png')}/>
             </View>
             <View style={styles.slide}>
-                <TouchableOpacity>
-                    
-                </TouchableOpacity>
+                <View style={styles.button}>
+                    <TouchableOpacity onPress={props.disableTutorial}>
+                        <Image style={styles.gotit} source={require('../icons/gotit.png')}/>
+                    </TouchableOpacity>
+                </View>
             </View>
         </Swiper>
     );
@@ -44,6 +46,10 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         backgroundColor: 'black'
+    },
+    button: {
+        height: "10%",
+        width: "50%"
     },
     text: {
         color: '#fff',
@@ -65,19 +71,6 @@ const styles = StyleSheet.create({
         fontSize: 30,
         fontWeight: 'bold',
     },
-    button: {
-        backgroundColor: '#309986',
-        borderRadius: 8,
-        borderWidth: 2,
-        borderStyle: "solid",
-        color: 'white',
-        padding: 15,
-        fontWeight: "bold",
-        margin: 3,
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-    },
     bottonBox: {
         display: 'flex',
         marginLeft: 'auto',
@@ -85,8 +78,8 @@ const styles = StyleSheet.create({
         marginRight: 20
     },
     gotit: {
-        color: '#309986',
-        fontSize: 24,
+        height: "100%",
+        width: "100%"
     },
     picture: {
         height: "65%",
