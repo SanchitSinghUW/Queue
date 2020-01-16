@@ -1,6 +1,6 @@
 import React from 'react';
 import ModalLibrary from 'react-native-modal';
-import { StyleSheet, View, TextInput, FlatList, Image, TouchableOpacity, Modal, AsyncStorage } from 'react-native';
+import { StyleSheet, View, TextInput, FlatList, Image, TouchableOpacity, Modal, AsyncStorage, Text } from 'react-native';
 import Card from './Card';
 import Crowdsource from './Crowdsource';
 import Authorization from './Authorization';
@@ -212,5 +212,8 @@ const styles = StyleSheet.create({
         height: '100%',
         width: '100%',
         backgroundColor: 'black'
+    },
+    skip: {
+        backgroundColor: "black"
     }
 });

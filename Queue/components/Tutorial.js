@@ -4,70 +4,41 @@ import Swiper from 'react-native-swiper'
 
 export default function Tutorial(props) {
 
-    let pictureList = ['../icons/82087833_524552221746524_1065347117146439680_n.png',
-                        '../icons/82345146_995978140788496_3195880869986304_n.png',
-                        '../icons/82504077_2568140290177299_6148435448764039168_n.png',
-                        '../icons/82558593_465870304097835_1071093555755220992_n.png'];
-
     let dot = <View 
                 style={{backgroundColor:'white',
                         width: 8, height: 8,borderRadius: 4,
                         marginLeft: 3, marginRight: 3, marginTop: 3,
                         marginBottom: 3,}} />
     return (
-        <Swiper style={styles.wrapper} loop={false} dot={dot}>
+        <Swiper loop={false} dot={dot}>
             <View style={styles.slide}>
-                <Text style={styles.logoText}>welcome to</Text>
-                <Image style={styles.logo} source={require('../icons/logo.png')}/>
-                <Text style={styles.logoText}>let's get started</Text>
-                <View style={styles.bottonBox}>
-                    <TouchableOpacity onPress={props.disableTutorial}>
-                        <Text style={styles.gotit}>Got it</Text>
-                    </TouchableOpacity>
-                </View>
+                <Image style={styles.picture} source={require('../icons/welcome.png')}/>
             </View>
             <View style={styles.slide}>
-                <Text style={styles.text}>swipe left on a company to join</Text>
-                <Image style={styles.image} source={require('../icons/82087833_524552221746524_1065347117146439680_n.png')}/>
-                <View style={styles.bottonBox}>
-                    <TouchableOpacity onPress={props.disableTutorial}>
-                        <Text style={styles.gotit}>Got it</Text>
-                    </TouchableOpacity>
-                </View>
+                <Image style={styles.picture} source={require('../icons/main.png')}/>
             </View>
             <View style={styles.slide}>
-                <Text style={styles.text}>Beautiful</Text>
-                <Image style={styles.image} source={require('../icons/82345146_995978140788496_3195880869986304_n.png')}/>
-                <View style={styles.bottonBox}>
-                    <TouchableOpacity onPress={props.disableTutorial}>
-                        <Text style={styles.gotit}>Got it</Text>
-                    </TouchableOpacity>
-                </View>
+                <Image style={styles.picture} source={require('../icons/join.png')}/>
             </View>
             <View style={styles.slide}>
-                <Text style={styles.text}>And simple</Text>
-                <Image style={styles.image} source={require('../icons/82504077_2568140290177299_6148435448764039168_n.png')}/>
-                <View style={styles.bottonBox}>
-                    <TouchableOpacity onPress={props.disableTutorial}>
-                        <Text style={styles.gotit}>Got it</Text>
-                    </TouchableOpacity>
-                </View>
+                <Image style={styles.picture} source={require('../icons/leave.png')}/>
             </View>
             <View style={styles.slide}>
-                <Text style={styles.text}>And simple</Text>
-                <Image style={styles.image} source={require('../icons/82558593_465870304097835_1071093555755220992_n.png')}/>
-                <View style={styles.bottonBox}>
-                    <TouchableOpacity onPress={props.disableTutorial}>
-                        <Text style={styles.gotit}>Got it</Text>
-                    </TouchableOpacity>
-                </View>
+                <Image style={styles.picture} source={require('../icons/crowdsource.png')}/>
+            </View>
+            <View style={styles.slide}>
+                <Image style={styles.picture} source={require('../icons/info.png')}/>
+            </View>
+            <View style={styles.slide}>
+                <TouchableOpacity>
+                    
+                </TouchableOpacity>
             </View>
         </Swiper>
     );
 }
 
 const styles = StyleSheet.create({
-    wrapper: {},
     slide: {
         flex: 1,
         justifyContent: 'center',
@@ -116,5 +87,9 @@ const styles = StyleSheet.create({
     gotit: {
         color: '#309986',
         fontSize: 24,
+    },
+    picture: {
+        height: "65%",
+        width: "85%"
     }
 })
