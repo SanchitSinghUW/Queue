@@ -36,7 +36,7 @@ const styles = StyleSheet.create({
     },
     form: {
         width: "100%",
-        height: "35%",
+        height: 300,
         borderRadius: 15,
         borderWidth: 2,
         borderStyle: "solid",
@@ -54,7 +54,7 @@ const styles = StyleSheet.create({
         borderStyle: "solid",
         color: 'white',
         width: "30%",
-        height: "20%",
+        height: 50,
         fontWeight: "bold",
         display: "flex",
         alignItems: "center",
@@ -65,7 +65,7 @@ const styles = StyleSheet.create({
     buttonFont: {
         fontWeight: "900",
         paddingBottom: '15%',
-        paddingTop: '5%'
+        paddingTop: '8%'
     },
     input: {
         width: "60%",
@@ -75,6 +75,6 @@ const styles = StyleSheet.create({
         borderStyle: "solid",
         borderColor: "white",
         marginTop: "8%",
-        marginBottom: "4%"
+        marginBottom: "4%",
     }
 });

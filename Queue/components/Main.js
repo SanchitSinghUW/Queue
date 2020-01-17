@@ -121,17 +121,16 @@ export default function Main(props) {
 
     return (
         <View style={styles.container}>
-            <Modal animationType="slide" visible={tutorial || notAuthorized}>
-                {notAuthorized && <ModalLibrary
+            {(notAuthorized && !tutorial) && 
+                <ModalLibrary
                     isVisible={notAuthorized}
                     backdropOpacity={1}
                 >
                     <Authorization incorrect={incorrect} authenticateData={authenticateData}/>
                 </ModalLibrary>}
-                {notAuthorized && <View style={styles.screen}></View>}
+            <Modal animationType="slide" visible={tutorial}>
                 {tutorial && <Tutorial disableTutorial={closeTutorial}/>}
             </Modal>
-            {notAuthorized && <View style={styles.screen}></View>}
             <View>
                 <View style={styles.header}>
                     <TextInput 

@@ -145,7 +145,6 @@ const styles = StyleSheet.create({
         fontWeight: "900",
         color: "white",
         fontSize: 25,
-        paddingBottom: '19%'
     },
     image: {
         height: 30,
