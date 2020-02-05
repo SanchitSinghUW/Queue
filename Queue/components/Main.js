@@ -1,6 +1,6 @@
 import React from 'react';
 import ModalLibrary from 'react-native-modal';
-import { StyleSheet, View, TextInput, FlatList, Image, TouchableOpacity, Modal, AsyncStorage, Text } from 'react-native';
+import { StyleSheet, View, TextInput, FlatList, Image, TouchableOpacity, Modal, AsyncStorage, RefreshControl} from 'react-native';
 import Card from './Card';
 import Crowdsource from './Crowdsource';
 import Authorization from './Authorization';
@@ -21,6 +21,7 @@ export default function Main(props) {
     const [keys, setKeys] = React.useState([]);
     const [incorrect, setIncorrect] = React.useState(false);
     const [tutorial, setTutorial] = React.useState(false);
+    const [refreshing, setRefresing] = React.useState(false);
 
     //only updates a single card that was given from the server
     let receiveMessage = () => {
@@ -55,6 +56,7 @@ export default function Main(props) {
             let data = await response.json();
             setCompanies(data);
             setKeys(Object.keys(data).sort());
+            setRefresing(false);
         } catch(e) {
             console.log(e);
         }
@@ -119,6 +121,11 @@ export default function Main(props) {
         await AsyncStorage.setItem('tutorial', 'false');
     }
 
+    let refreshData = () => {
+        setRefresing(true);
+        getCompanies();
+    }
+
     return (
         <View style={styles.container}>
             {(notAuthorized && !tutorial) && 
@@ -157,6 +164,16 @@ export default function Main(props) {
                     />
                 </ModalLibrary>
                 <FlatList 
+                    refreshControl={
+                        <RefreshControl
+                            refreshing={refreshing}
+                            onRefresh={refreshData}
+                            tintColor="#fff"
+                            titleColor="#fff"
+                        />
+                    }
+                    refreshing={refreshing}
+                    onRefresh={refreshData}
                     data={keys}
                     renderItem={( key ) => (
                         <Card 

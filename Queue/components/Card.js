@@ -8,7 +8,6 @@ const screenHeight = Dimensions.get('window').height;
 const screenWidth = Dimensions.get('window').width;
 const cardCompany = screenWidth / 15;
 const cardHeight = screenHeight / 10;
-
 export default function Card(props) {
     const [notVisible, setVisible] = React.useState(true);
     const [font, setFont] = React.useState(false);
@@ -22,15 +21,15 @@ export default function Card(props) {
             <Text style={styles.rightFont}>JOIN</Text>
         </View>;
 
-    let fontLoader = async () => {
-        await Font.loadAsync({
-            'open-sans-bold': require('../assets/fonts/OpenSans-Bold.ttf'),
-        });
-        setFont(true);
-    }
+    // let fontLoader = async () => {
+    //     await Font.loadAsync({
+    //         'open-sans-bold': require('../assets/fonts/OpenSans-Bold.ttf'),
+    //     });
+    //     setFont(true);
+    // }
 
     React.useEffect(() => {
-        fontLoader();
+        //fontLoader();
     });
 
     clickJoin = () => {
