@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import ModalLibrary from 'react-native-modal';
 import { StyleSheet, View, TextInput, FlatList, Image, TouchableOpacity, Modal, AsyncStorage, RefreshControl} from 'react-native';
 import Card from './Card';
@@ -22,10 +22,13 @@ export default function Main(props) {
     const [incorrect, setIncorrect] = React.useState(false);
     const [tutorial, setTutorial] = React.useState(false);
     const [refreshing, setRefresing] = React.useState(false);
+    const [authDisplay, setAuthDisplay] = React.useState(false);
+    // const [callBackCard, setCallBackCard] = React.useState(false);
 
     //only updates a single card that was given from the server
     let receiveMessage = () => {
         props.socket.onmessage = (event) => {
+            console.log(JSON.stringify(event));
             let data = JSON.parse(event.data);
             let companyName = data.company_name.S;
             let line_size = parseInt(data.line_size.N);
@@ -96,7 +99,12 @@ export default function Main(props) {
             console.log(data);
             if(data === "passed"){
                 setIncorrect(false);
-                setAuthorize(false);
+                // if (callBackCard != null) {
+                //     useEffect(() => {setAuthorize(false)}, callBackCard(true))
+                // } else {
+                    setAuthorize(false);
+                    //callBackCard();
+                //}
             }else{
                 setIncorrect(true);
             }
@@ -126,14 +134,16 @@ export default function Main(props) {
         getCompanies();
     }
 
+
     return (
         <View style={styles.container}>
-            {(notAuthorized && !tutorial) && 
+            {authDisplay && 
                 <ModalLibrary
                     isVisible={notAuthorized}
                     backdropOpacity={1}
                 >
-                    <Authorization incorrect={incorrect} authenticateData={authenticateData}/>
+                    <Authorization incorrect={incorrect} authenticateData={authenticateData} 
+                    closeAuth={() => setAuthDisplay(false)}/>
                 </ModalLibrary>}
             <Modal animationType="slide" visible={tutorial}>
                 {tutorial && <Tutorial disableTutorial={closeTutorial}/>}
@@ -148,6 +158,10 @@ export default function Main(props) {
                             onChangeText={changeSearch}
                             >
                     </TextInput>
+                    <TouchableOpacity onPress={() => {setAuthDisplay(true)}}>
+                        {notAuthorized ? <Image source={require('../icons/locked.png')} style={styles.image}/> :
+                        null}
+                    </TouchableOpacity>
                     <TouchableOpacity onPress={() => {setTutorial(true)}}>
                         <Image source={require('../icons/question.png')} style={styles.image}/> 
                     </TouchableOpacity>
@@ -190,6 +204,11 @@ export default function Main(props) {
                             totalDifference={companies[key.item].totalDifference}
                             countDequeued={companies[key.item].countDequeued}
                             allData={companies}
+                            notAuthorized={notAuthorized}
+                            setAuthDisplayTrue={() => {
+                                setAuthDisplay(true)
+                                // setCallBackCard(clickJoin);
+                            }}
                         />
                     )}
                     keyExtractor={key => key}

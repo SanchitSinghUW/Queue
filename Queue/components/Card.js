@@ -8,6 +8,7 @@ const screenHeight = Dimensions.get('window').height;
 const screenWidth = Dimensions.get('window').width;
 const cardCompany = screenWidth / 15;
 const cardHeight = screenHeight / 10;
+
 export default function Card(props) {
     const [notVisible, setVisible] = React.useState(true);
     const [font, setFont] = React.useState(false);
@@ -28,29 +29,73 @@ export default function Card(props) {
     //     setFont(true);
     // }
 
-    React.useEffect(() => {
-        //fontLoader();
-    });
+    //var firstTime = true;
 
-    clickJoin = () => {
+    // React.useEffect(() => {
+    // //     //fontLoader();
+    //     clickJoin()
+    // }, [props.notAuthorized]);
+
+    // if (!props.notAuthorizedStatus()) {
+    //     clickJoin();
+    // }
+
+    // note, this is actually working. except, it is first of all asking a log in immediately
+    // and it is always updating test.ai on the first try. this is getting somewhere
+    // prevent this from being called immediately
+
+    // the last one is being called because actually all of them are called on the way
+    
+    React.useEffect(() => {
+        //console.log("UseEffect Called")
+        if (props.queued === props.name) {
+            console.log("UseEffect Triggered Join")
+            console.log("Trig queued " + props.queued)
+            console.log("Trig current " + props.name)
+            console.log("--------------")
+            clickJoin(props.name)
+        }
+    }, 
+    [props.notAuthorized])
+
+    //console.log(props.queued + "----------------" + props.name)
+
+    clickJoin = (name) => {
         //backend relies on there to be a 0 or a 1 prepended. 1 means enque.
-        if(props.queued === "NA"){
-            try {
-                let data = {
-                    "action": "enqueue",
-                    "data": "1" + props.name
-                };
-                props.socket.send(JSON.stringify(data));
-                props.setQueued(props.name);
-            } catch(e) {
-                console.log(e);
+        //console.log(!props.notAuthorized)
+        if(!props.notAuthorized){
+
+            // bug: the if check is not entered because for some reason, props.name is test.ai,
+            // which is the last company. props.name comes from the parent. this is very bizzarre
+            //console.log("queued " + props.queued)
+            //console.log("current " + props.name)
+            if((props.queued === "NA") || (props.queued === name)){
+                try {
+                    let data = {
+                        "action": "enqueue",
+                        "data": "1" + name
+                    };
+                    props.socket.send(JSON.stringify(data));
+                    props.setQueued(name);
+                    //console.log(2)
+                } catch(e) {
+                    //console.log(e);
+                }
             }
+        } else {
+            //console.log(props.name);
+            //console.log(props.queued);
+            // this is needed so that when we swipe before logging in we can rememeber the statussssss
+            props.setQueued(props.name);
+            props.setAuthDisplayTrue()
+            // do something with setQueued
         }
     };
 
     clickLeave = () => {
         //backend relies on there to be a 0 or a 1 prepended. 0 means denque.
         if(props.queued === props.name){
+            //console.log("successful")
             try {
                 let data = {
                     "action": "enqueue",
@@ -82,7 +127,9 @@ export default function Card(props) {
     } else {
         cardStyle.push(styles.container);
     }
-    if(props.queued === props.name){
+    //console.log("everyname " + props.name)
+    //console.log("everyqueued " +props.queued)
+    if((props.queued === props.name) && !props.notAuthorized){
         cardStyle.push(styles.selectedCardColor);
     }else{
         cardStyle.push(styles.defaultCardColor);

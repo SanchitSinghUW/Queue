@@ -18,13 +18,27 @@ export default function Authorization(props) {
             <TextInput placeholder=" Enter Fair ID" value={code} onChangeText={changeCode} 
                 style={[styles.font, styles.input]} keyboardType={'numeric'}/>
             {props.incorrect && <Text style={styles.error}>Please Try Again</Text>}
-            <TouchableOpacity onPress={authenticateData} style={styles.button}>
-                <Text style={[styles.font, styles.buttonFont]}>Join</Text>
-            </TouchableOpacity>
+            <View style={styles.buttons}>
+                <TouchableOpacity onPress={props.closeAuth} style={styles.dismissColor}>
+                    <Text style={[styles.font, styles.buttonFont]}>Later</Text>
+                </TouchableOpacity>
+                <TouchableOpacity onPress={authenticateData} style={styles.button}>
+                    <Text style={[styles.font, styles.buttonFont]}>Join</Text>
+                </TouchableOpacity>
+            </View>
         </View>
     );
 }
 const styles = StyleSheet.create({
+    buttons: {
+        marginTop: "4%",
+        marginBottom: '5%',
+        display: "flex",
+        width: "60%",
+        alignItems: "center",
+        flexDirection: "row",
+        justifyContent: "center"
+    },
     font: {
         color: "white",
         fontSize: 25,
@@ -53,14 +67,25 @@ const styles = StyleSheet.create({
         borderWidth: 2,
         borderStyle: "solid",
         color: 'white',
-        width: "30%",
+        width: "50%",
         height: 50,
         fontWeight: "bold",
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
-        marginTop: "4%",
-        marginBottom: '5%'
+    },
+    dismissColor: {
+        backgroundColor: '#e6ac00',
+        borderRadius: 5,
+        borderWidth: 2,
+        borderStyle: "solid",
+        color: 'white',
+        width: "50%",
+        height: 50,
+        fontWeight: "bold",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center"
     },
     buttonFont: {
         fontWeight: "900",
