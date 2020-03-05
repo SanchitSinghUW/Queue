@@ -28,7 +28,6 @@ export default function Main(props) {
     //only updates a single card that was given from the server
     let receiveMessage = () => {
         props.socket.onmessage = (event) => {
-            console.log(JSON.stringify(event));
             let data = JSON.parse(event.data);
             let companyName = data.company_name.S;
             let line_size = parseInt(data.line_size.N);
@@ -96,7 +95,7 @@ export default function Main(props) {
             if(!response.ok) {
             }
             let data = await response.json();
-            console.log(data);
+            //console.log(data);
             if(data === "passed"){
                 setIncorrect(false);
                 // if (callBackCard != null) {

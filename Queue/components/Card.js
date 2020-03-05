@@ -49,10 +49,10 @@ export default function Card(props) {
     React.useEffect(() => {
         //console.log("UseEffect Called")
         if (props.queued === props.name) {
-            console.log("UseEffect Triggered Join")
-            console.log("Trig queued " + props.queued)
-            console.log("Trig current " + props.name)
-            console.log("--------------")
+            // console.log("UseEffect Triggered Join")
+            // console.log("Trig queued " + props.queued)
+            // console.log("Trig current " + props.name)
+            // console.log("--------------")
             clickJoin(props.name)
         }
     }, 
@@ -61,10 +61,15 @@ export default function Card(props) {
     //console.log(props.queued + "----------------" + props.name)
 
     clickJoin = (name) => {
+        let parsedName = name
         //backend relies on there to be a 0 or a 1 prepended. 1 means enque.
         //console.log(!props.notAuthorized)
         if(!props.notAuthorized){
-
+            //console.log("entered")
+            //console.log(parsedName)
+            if (typeof name != "string") {
+                parsedName = props.name
+            }
             // bug: the if check is not entered because for some reason, props.name is test.ai,
             // which is the last company. props.name comes from the parent. this is very bizzarre
             //console.log("queued " + props.queued)
@@ -73,10 +78,10 @@ export default function Card(props) {
                 try {
                     let data = {
                         "action": "enqueue",
-                        "data": "1" + name
+                        "data": "1" + parsedName
                     };
                     props.socket.send(JSON.stringify(data));
-                    props.setQueued(name);
+                    props.setQueued(parsedName);
                     //console.log(2)
                 } catch(e) {
                     //console.log(e);
