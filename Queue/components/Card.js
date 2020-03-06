@@ -103,11 +103,20 @@ export default function Card(props) {
     }
 
     let cardStyle = [];
-    if(!notVisible){
-        cardStyle.push(styles.containerClicked);
+    if (props.favoriites.has(props.name)) {
+        if(!notVisible){
+            cardStyle.push(styles.containerClickedFav);
+        } else {
+            cardStyle.push(styles.containerFav);
+        }
     } else {
-        cardStyle.push(styles.container);
+        if(!notVisible){
+            cardStyle.push(styles.containerClicked);
+        } else {
+            cardStyle.push(styles.container);
+        }
     }
+
     if((props.queued === props.name) && !props.notAuthorized){
         cardStyle.push(styles.selectedCardColor);
     }else{
@@ -184,6 +193,32 @@ const styles = StyleSheet.create({
         borderTopRightRadius: 10,
         borderWidth: 1.5,
         borderColor: '#363636',
+        borderBottomWidth: 0
+    },
+    containerFav: {
+        width: "100%",
+        height: "100%",
+        padding: 0,
+        display: "flex",
+        flexDirection: "row",
+        justifyContent: "space-around",
+        alignItems: "center",
+        borderRadius: 10,
+        borderWidth: 1.5,
+        borderColor: '#EEC72C'
+    },
+    containerClickedFav: {
+        width: "100%",
+        height: "100%",
+        padding: 0,
+        display: "flex",
+        flexDirection: "row",
+        justifyContent: "space-around",
+        alignItems: "center",
+        borderTopLeftRadius: 10,
+        borderTopRightRadius: 10,
+        borderWidth: 1.5,
+        borderColor: '#EEC72C',
         borderBottomWidth: 0
     },
     defaultCardColor: {
