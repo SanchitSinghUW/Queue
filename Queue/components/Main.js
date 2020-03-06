@@ -23,7 +23,29 @@ export default function Main(props) {
     const [tutorial, setTutorial] = React.useState(false);
     const [refreshing, setRefresing] = React.useState(false);
     const [authDisplay, setAuthDisplay] = React.useState(false);
-    // const [callBackCard, setCallBackCard] = React.useState(false);
+    const [fav, setFav] = React.useState(new Set());
+
+    // this is called some but it should be called updateOrder
+    let some = (data, keys = false) => {
+        let sortedCompanies;
+        if (keys !== false) {
+            sortedCompanies = keys
+        } else {
+            sortedCompanies = Object.keys(data);
+        }
+        sortedCompanies.sort();
+        rankedCompanies = []
+        rankedCompanies.push.apply(rankedCompanies, fav)
+        fav.forEach((element) => {
+            rankedCompanies.push(element)
+        })
+        for (let i = 0; i < sortedCompanies.length; i++) {
+            if (!fav.has(sortedCompanies[i])) {
+                rankedCompanies.push(sortedCompanies[i]);
+            }
+        }
+        setKeys(rankedCompanies);
+    }
 
     //only updates a single card that was given from the server
     let receiveMessage = () => {
@@ -45,8 +67,11 @@ export default function Main(props) {
                     }
                 }
             });
+            console.log("receive")
+
             setCompanies(newCompanies);
-            setKeys(Object.keys(newCompanies).sort());
+            //setKeys(Object.keys(newCompanies).sort());
+            some(newCompanies);
         }
     }
 
@@ -57,7 +82,10 @@ export default function Main(props) {
             }
             let data = await response.json();
             setCompanies(data);
-            setKeys(Object.keys(data).sort());
+            //setKeys(Object.keys(data).sort());
+            console.log("getCOmp")
+            some(data)
+            //setOrder(data);
             setRefresing(false);
         } catch(e) {
             console.log(e);
@@ -85,6 +113,10 @@ export default function Main(props) {
         getCompanies();
         initTutorial();
     }, [receiveMessage()]);
+
+    React.useEffect(() => {
+        some(companies)
+    }, [fav]);
 
     let authenticateData = async (password) => {
         try {
@@ -120,7 +152,7 @@ export default function Main(props) {
                 tempKeys.push(val);
             }
         })
-        setKeys(tempKeys.sort());
+        some(null, tempKeys)
     }
 
     let closeTutorial = async () => {
@@ -133,6 +165,34 @@ export default function Main(props) {
         getCompanies();
     }
 
+
+    // AHHH annoying code! WE CANNOT DIRECTLY MANIPULATE THIS WITHOUT INTRODICING CODE ELSEWHERE THAT CAN INTERPRET PREPENDED RANKS
+    // NEED TO THINK ABOUT THIS MORE
+    let updateCardRank = (name) => {
+        // make copy
+        // keysClone = keys.slice(0)
+        // for (let i = 0; i < keysClone.length; i++) {
+        //     // if we see that the param name is the same and there is no number prepended
+        //     let favorite = name === keysClone[i]
+        //     // if we see that the param name is the same and there is a number prepended
+        //     let unfavorite = name === keysClone[i].substring(1, keysClone[i].length)
+        //     if (favorite || unfavorite) {
+        //         if (favorite) {
+        //             keysClone[i] = "1" + keysClone[i] // add rank
+        //         } else {
+        //             keysClone[i] = keysClone[i].substring(1, keysClone[i].length) // remove rank
+        //         }
+        //     }
+        // }
+        // setKeys(keysClone)
+        copySet = new Set(fav)
+        if (copySet.has(name)) {
+            copySet.delete(name)
+        } else {
+            copySet.add(name)
+        }
+        setFav(copySet)
+    }
 
     return (
         <View style={styles.container}>
@@ -204,10 +264,12 @@ export default function Main(props) {
                             countDequeued={companies[key.item].countDequeued}
                             allData={companies}
                             notAuthorized={notAuthorized}
+                            favoriites={fav}
                             setAuthDisplayTrue={() => {
                                 setAuthDisplay(true)
                                 // setCallBackCard(clickJoin);
                             }}
+                            updateCardRank={updateCardRank}
                         />
                     )}
                     keyExtractor={key => key}

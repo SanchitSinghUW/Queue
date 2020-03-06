@@ -22,30 +22,6 @@ export default function Card(props) {
             <Text style={styles.rightFont}>JOIN</Text>
         </View>;
 
-    // let fontLoader = async () => {
-    //     await Font.loadAsync({
-    //         'open-sans-bold': require('../assets/fonts/OpenSans-Bold.ttf'),
-    //     });
-    //     setFont(true);
-    // }
-
-    //var firstTime = true;
-
-    // React.useEffect(() => {
-    // //     //fontLoader();
-    //     clickJoin()
-    // }, [props.notAuthorized]);
-
-    // if (!props.notAuthorizedStatus()) {
-    //     clickJoin();
-    // }
-
-    // note, this is actually working. except, it is first of all asking a log in immediately
-    // and it is always updating test.ai on the first try. this is getting somewhere
-    // prevent this from being called immediately
-
-    // the last one is being called because actually all of them are called on the way
-    
     React.useEffect(() => {
         //console.log("UseEffect Called")
         if (props.queued === props.name) {
@@ -132,15 +108,15 @@ export default function Card(props) {
     } else {
         cardStyle.push(styles.container);
     }
-    //console.log("everyname " + props.name)
-    //console.log("everyqueued " +props.queued)
     if((props.queued === props.name) && !props.notAuthorized){
         cardStyle.push(styles.selectedCardColor);
     }else{
         cardStyle.push(styles.defaultCardColor);
     }
 
-
+    setFav = () => {
+        props.updateCardRank(props.name)
+    }
 
     return (
         <View>
@@ -163,6 +139,12 @@ export default function Card(props) {
                                 <Image source={require('../icons/user.png')} style={styles.image}/>
                                 <Text style={styles.font}>{props.people}</Text>
                             </View>
+                            <TouchableOpacity onPress={setFav} style={styles.people}>
+                                {props.favoriites.has(props.name) ? 
+                                <Image source={require('../icons/star-2.png')} style={styles.image}/>
+                                : 
+                                <Image source={require('../icons/star.png')} style={styles.image}/>}
+                            </TouchableOpacity>
                         </View>
                     </View>
                 </TouchableOpacity> 
@@ -266,7 +248,7 @@ const styles = StyleSheet.create({
         margin: 4,
     },
     people: {
-        width: "25%",
+        width: "15%",
         height: "30%",
         textAlign: "center",
         display: "flex",
