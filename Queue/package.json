@@ -8,7 +8,7 @@
     "eject": "expo eject"
   },
   "dependencies": {
-    "electron": "^7.1.5",
+    "electron": "^15.5.5",
     "expo": "~36.0.0",
     "install": "^0.13.0",
     "npm": "^6.13.6",
